@@ -1,5 +1,12 @@
 section > .book {
     position: absolute;
+}
+
+#aside > .book {
+    position: relative;
+}
+
+:where(section, #aside) > .book {
     bottom: 0;
     z-index: 3;
     cursor: grab;
@@ -13,43 +20,18 @@ section > .book {
          -o-transition: transform 0.5s 0.1s;
             transition: transform 0.5s 0.1s;
 }
-section > .book:hover {
+:where(section, #aside) > .book:hover {
     -webkit-transform: translateZ(15px);
        -moz-transform: translateZ(15px);
          -o-transform: translateZ(15px);
             transform: translateZ(15px);
 }
 
-aside > .book {
-    position: absolute;
-    z-index: 3;
-    cursor: grab;
-    transform-style: preserve-3d;
-    -webkit-transform-origin: top left;
-       -moz-transform-origin: top left;
-         -o-transform-origin: top left;
-            transform-origin: top left;
-    -webkit-transform: translateZ(-25px) rotateZ(-90deg);
-       -moz-transform: translateZ(-25px) rotateZ(-90deg);
-         -o-transform: translateZ(-25px) rotateZ(-90deg);
-            transform: translateZ(-25px) rotateZ(-90deg);
-    -webkit-transition: transform 0.5s 0.1s;
-       -moz-transition: transform 0.5s 0.1s;
-         -o-transition: transform 0.5s 0.1s;
-            transition: transform 0.5s 0.1s;
-}
-aside > .book:hover {
-    -webkit-transform: translateZ(15px) rotateZ(-90deg);
-       -moz-transform: translateZ(15px) rotateZ(-90deg);
-         -o-transform: translateZ(15px) rotateZ(-90deg);
-            transform: translateZ(15px) rotateZ(-90deg);
-}
-
 .book {
     transform-style: preserve-3d;
 }
 
-.book.spine {
+section .book.spine {
     position: absolute;
     width: 100%;
     height: 100%;
@@ -60,7 +42,7 @@ aside > .book:hover {
     align-items: center;
     justify-content: center;
 }
-.book.top {
+section .book.top {
     position: absolute;
     width: 100%;
     height: 50px;
@@ -69,7 +51,7 @@ aside > .book:hover {
     transform: rotateX(90deg);
     background-color: #EDE79F;
 }
-.book.bottom {
+section .book.bottom {
     position: absolute;
     width: 100%;
     height: 50px;
@@ -78,7 +60,7 @@ aside > .book:hover {
     transform: rotateX(-90deg);
     background-color: #EDE79F;
 }
-.book.front {
+section .book.front {
     position: absolute;
     width: 50px;
     height: 100%;
@@ -86,13 +68,58 @@ aside > .book:hover {
     transform-origin: left;
     transform: rotateY(90deg);
 }
-.book.back {
+section .book.back {
     position: absolute;
     width: 50px;
     height: 100%;
     right: 100%;
     transform-origin: right;
     transform: rotateY(-90deg);
+}
+
+#aside .book.spine {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*writing-mode: vertical-lr;
+    text-orientation: sideways;*/
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#aside .book.front {
+    position: absolute;
+    width: 50px;
+    height: 240px;
+    transform-origin: top left;
+    transform: rotateX(90deg) rotateZ(-90deg);
+}
+#aside .book.back {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 100%;
+    transform-origin: top;
+    transform: rotateX(-90deg);
+}
+#aside .book.bottom {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    left: 100%;
+    transform-origin: left;
+    transform: rotateY(90deg);
+    background-color: #EDE79F;
+}
+#aside .book.top {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    right: 100%;
+    transform-origin: right;
+    transform: rotateY(-90deg);
+    background-color: #EDE79F;
 }
 
 .height200 { height: 200px; }
@@ -110,6 +137,52 @@ aside > .book:hover {
 .width40 { width: 40px; }
 .width45 { width: 45px; }
 .width50 { width: 50px; }
+
+#aside .height200 {
+    width: 200px;
+    .book.front {
+        height: 200px;
+    }
+}
+#aside .height210 {
+    width: 210px;
+    .book.front {
+        height: 210px;
+    }
+}
+#aside .height220 {
+    width: 220px;
+    .book.front {
+        height: 220px;
+    }
+}
+#aside .height230 {
+    width: 230px;
+    .book.front {
+        height: 230px;
+    }
+}
+#aside .height240 {
+    width: 240px;
+    .book.front {
+        height: 240px;
+    }
+}
+#aside .height250 {
+    width: 250px;
+    .book.front {
+        height: 250px;
+    }
+}
+
+#aside .width15 { height: 15px; }
+#aside .width20 { height: 20px; }
+#aside .width25 { height: 25px; }
+#aside .width30 { height: 30px; }
+#aside .width35 { height: 35px; }
+#aside .width40 { height: 40px; }
+#aside .width45 { height: 45px; }
+#aside .width50 { height: 50px; }
 
 .red { background-color: red; }
 .green { background-color: green; }

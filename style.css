@@ -45,27 +45,29 @@ nav {
     padding: 0 20px;
     z-index: 5;
     background-color: var(--primary-red);
-    a, button {
-        display: inline-block;
-        border: none;
-        margin: 0;
-        padding: 5px 10px;
-        text-decoration: none;
-        font-size: 16px;
-        font-family: "Libre Baskerville", serif-sans;
-        color: #FFBA08;
-        background-color: #92140C;
-        &:hover {
-            background-color: var(--secondary-red);
-        }
-    }
+}
+
+nav a, button {
+    display: inline-block;
+    border: none;
+    margin: 0;
+    padding: 5px 10px;
+    text-decoration: none;
+    font-size: 16px;
+    font-family: "Libre Baskerville", serif-sans;
+    color: #FFBA08;
+    background-color: #92140C;
+}
+
+nav :where(a, button):hover {
+    background-color: var(--secondary-red);
 }
 
 #signin {
     float: right;
 }
 
-#main {
+#body {
     display: flex;
     min-height: max-content;
     height: max-content;
@@ -73,7 +75,7 @@ nav {
 }
 
 main {
-    flex: 3;
+    width: calc(100vw - 350px);
     border-top: 20px solid var(--primary-brown);
     background-color: var(--primary-brown);
 }
@@ -81,7 +83,7 @@ main {
 section {
     position: relative;
     height: 250px;
-    width: calc(100%-40px);
+    width: calc(100% - 40px);
     border: 20px solid var(--primary-brown);
     border-top-width: 0;
     border-bottom-width: 40.4px;
@@ -91,8 +93,12 @@ section {
     align-content: flex-end;
     align-items: flex-end;
     vertical-align: bottom;
-    perspective: 800px;
-    perspective-origin: 60% -100px;
+    -webkit-perspective: 800px;
+       -moz-perspective: 800px;
+            perspective: 800px;
+    -webkit-perspective-origin: 60% -100px;
+       -moz-perspective-origin: 60% -100px;
+            perspective-origin: 60% -100px;
 }
 
 .shelf {
@@ -168,17 +174,18 @@ label {
     bottom: -32px;
     width: 100%;
     text-align: center;
-    a {
-        padding: 0;
-        border-radius: 5px;
-        border: 3px outset #FFC533;
-        text-decoration: none;
-        color: black;
-        background-color: var(--primary-yellow);
-        &:hover {
-            color: #140F00;
-            background-color: var(--secondary-yellow);
-        }
+}
+
+label a {
+    padding: 0;
+    border-radius: 5px;
+    border: 3px outset #FFC533;
+    text-decoration: none;
+    color: black;
+    background-color: var(--primary-yellow);
+    &:hover {
+        color: #140F00;
+        background-color: var(--secondary-yellow);
     }
 }
 
@@ -188,19 +195,32 @@ label {
 }
 
 aside {
-    flex: 1;
     position: -webkit-sticky;
     position: sticky;
-    top: 29.2px;
+    top: 0;
     right: 0;
-    z-index: 1;
-    /*display: flex;
+    display: flex;
     flex-direction: column-reverse;
-    justify-content: center;*/
-    height: calc(100vh - 29.2px);
+    justify-content: flex-start;
+    width: 350px;
+    height: 100vh;
+    overflow-y: auto;
     background-color: var(--primary-brown);
     -webkit-transition: 0.5s;
-    transition: 0.5s;
-    perspective: 800px;
-    perspective-origin: -100px -100px;
+       -moz-transition: 0.5s;
+         -o-transition: 0.5s;
+            transition: 0.5s;
+    -webkit-perspective: 800px;
+       -moz-perspective: 800px;
+            perspective: 800px;
+    -webkit-perspective-origin: -100px -100px;
+       -moz-perspective-origin: -100px -100px;
+            perspective-origin: -100px -100px;
+}
+
+#spacer {
+    -webkit-transition: 0.5s;
+       -moz-transition: 0.5s;
+         -o-transition: 0.5s;
+            transition: 0.5s;
 }
