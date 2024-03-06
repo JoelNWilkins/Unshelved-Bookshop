@@ -3,9 +3,9 @@ import { Bookcase } from '../../components';
 import { genres } from '../../utils';
 
 function Genre() {
-    return (
-        <Bookcase shelves={genres} grouping='genres' />
-    );
+  return (
+    <Bookcase shelves={genres} grouping='genres' />
+  );
 }
 
 export default Genre;

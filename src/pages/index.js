@@ -1,4 +1,4 @@
-export { default as HomePage } from './HomePage';
+export { default as Pages } from './Pages';
 
 export { default as Genres } from './Genres/Genres';
 export { default as Crime } from './Genres/Crime';

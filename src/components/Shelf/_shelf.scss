@@ -1,0 +1,114 @@
+@import '../../scss/mixins';
+
+section {
+  --depth: 300px;
+  position: relative;
+  height: 425px;
+  width: calc(100% - 40px);
+  margin-bottom: 50px;
+  padding: 10px;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-end;
+  align-items: flex-end;
+  vertical-align: bottom;
+  @include perspective(2000px);
+  @include perspective-origin(60% -100px);
+}
+
+.shelf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border: 3px solid var(--secondary-brown);
+  /*border: 40px inset #472500;
+  border-top-width: 10px;
+  border-left-width: 20px;
+  background-color: #3D2000;*/
+  transform-style: preserve-3d;
+  pointer-events: none;
+}
+
+.wall {
+  position: absolute;
+  transform-style: preserve-3d;
+  background-color: var(--secondary-brown);
+  pointer-events: none;
+}
+.wall.back {
+  width: 100%;
+  height: 100%;
+  @include transform(translateZ(-var(--depth)));
+  background-color: var(--secondary-brown);
+}
+.wall.top {
+  width: 100%;
+  height: var(--depth);
+  bottom: 100%;
+  @include transform-origin(bottom);
+  @include transform(rotateX(90deg));
+  background-color: var(--primary-brown);
+}
+.wall.bottom {
+  width: 100%;
+  height: var(--depth);
+  top: 100%;
+  @include transform-origin(top);
+  @include transform(rotateX(-90deg));
+  background-color: var(--middle-brown);
+}
+.wall.left {
+  width: var(--depth);
+  height: 100%;
+  right: 100%;
+  @include transform-origin(right);
+  @include transform(rotateY(-90deg));
+  background-color: var(--middle-brown);
+}
+.wall.right {
+  width: var(--depth);
+  height: 100%;
+  left: 100%;
+  @include transform-origin(left);
+  @include transform(rotateY(90deg));
+  background-color: var(--secondary-brown);
+}
+
+@keyframes rotate {
+  from {
+  @include transform(rotate(0));
+  }
+  to {
+  @include transform(rotateY(360deg));
+  }
+}
+
+label {
+  position: absolute;
+  bottom: -35px;
+  width: 100%;
+  text-align: center;
+  z-index: 2;
+  @include transform(translateZ(10px));
+  
+  a {
+    padding: 0;
+    border-radius: 5px;
+    border: 3px outset #FFC533;
+    text-decoration: none;
+    color: black;
+    background-color: var(--primary-yellow);
+
+    &:hover {
+      color: #140F00;
+      background-color: var(--secondary-yellow);
+    }
+  }
+}
+
+.screw {
+  width: 10px;
+  margin: 1px 5px;
+}

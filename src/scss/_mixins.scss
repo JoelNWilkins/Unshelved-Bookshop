@@ -1,13 +1,32 @@
 @mixin transform($property) {
   -webkit-transform: $property;
-      -moz-transform: $property;
-        -o-transform: $property;
+     -moz-transform: $property;
+       -o-transform: $property;
           transform: $property;
+}
+
+@mixin transform-origin($property) {
+  -webkit-transform-origin: $property;
+     -moz-transform-origin: $property;
+       -o-transform-origin: $property;
+          transform-origin: $property;
 }
 
 @mixin transition($property) {
   -webkit-transition: $property;
-      -moz-transition: $property;
-        -o-transition: $property;
+     -moz-transition: $property;
+       -o-transition: $property;
           transition: $property;
+}
+
+@mixin perspective($property) {
+  -webkit-perspective: $property;
+     -moz-perspective: $property;
+          perspective: $property;
+}
+
+@mixin perspective-origin($property) {
+  -webkit-perspective-origin: $property;
+     -moz-perspective-origin: $property;
+          perspective-origin: $property;
 }

@@ -1,38 +1,52 @@
+const christie = {
+  color: 'gold',
+  backgroundColor: 'red',
+  fontSize: '18px'
+};
+
 const robots = {
   color: 'yellow',
-  backgroundColor: '#4A2A44'
+  backgroundColor: '#4A2A44',
+  fontSize: '18px'
 };
 
 const foundation = {
   color: '#333453',
-  backgroundColor: 'yellow'
+  backgroundColor: 'yellow',
+  fontSize: '18px'
 };
 
 const genres = {
   'crime': {
     'name': 'Crime',
-    'books': [ /*
+    'books': [
       {
         isbn: 'crime1',
         title: 'The Mysterious Affair at Styles',
         author: 'Agatha Christie',
-        front_cover: 'https://i.harperapps.com/hcuk/covers/9780008277765/x400.jpg',
-        className: 'height210 width30 red'
+        height: '180',
+        width: '120',
+        depth: '30',
+        style: christie
       },
       {
         isbn: 'crime2',
         title: 'Murder on the Orient Express',
         author: 'Agatha Christie',
-        front_cover: 'https://i.harperapps.com/hcuk/covers/9780008277765/x400.jpg',
-        className: 'height210 width30 red'
+        height: '180',
+        width: '120',
+        depth: '30',
+        style: christie
       },
       {
         isbn: 'crime3',
         title: 'The A.B.C. Murders',
         author: 'Agatha Christie',
-        front_cover: 'https://i.harperapps.com/hcuk/covers/9780008277765/x400.jpg',
-        className: 'height210 width30 red'
-      } */
+        height: '180',
+        width: '120',
+        depth: '30',
+        style: christie
+      }
     ]
   },
   'scifi': {
@@ -43,7 +57,6 @@ const genres = {
         title: 'The Caves of Steel',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008277765/x400.jpg',
-        className: 'height240 width30',
         height: '197',
         width: '129',
         depth: '17',
@@ -54,7 +67,6 @@ const genres = {
         title: 'The Naked Sun',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008277772/x400.jpg',
-        className: 'height240 width30',
         height: '197',
         width: '129',
         depth: '16.3',
@@ -65,7 +77,6 @@ const genres = {
         title: 'The Robots of Dawn',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008277789/x400.jpg',
-        className: 'height240 width50',
         height: '197',
         width: '129',
         depth: '27',
@@ -76,7 +87,6 @@ const genres = {
         title: 'Robots and Empire',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008277796/x400.jpg',
-        className: 'height240 width50',
         height: '197',
         width: '129',
         depth: '28',
@@ -87,7 +97,6 @@ const genres = {
         title: 'Prelude to Foundation',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008117481/x400.jpg',
-        className: 'height240 width50',
         height: '197',
         width: '129',
         depth: '26',
@@ -98,7 +107,6 @@ const genres = {
         title: 'Forward the Foundation',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008516208/x400.jpg',
-        className: 'height240 width40',
         height: '197',
         width: '129',
         depth: '26',
@@ -109,7 +117,6 @@ const genres = {
         title: 'Foundation',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008117498/x400.jpg',
-        className: 'height240 width30',
         height: '197',
         width: '129',
         depth: '15.2',
@@ -120,7 +127,6 @@ const genres = {
         title: 'Second Foundation',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008117511/x400.jpg',
-        className: 'height240 width30',
         height: '197',
         width: '129',
         depth: '15.2',
@@ -131,7 +137,6 @@ const genres = {
         title: 'Foundation and Empire',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008117504/x400.jpg',
-        className: 'height240 width30',
         height: '197',
         width: '129',
         depth: '26',
@@ -142,7 +147,6 @@ const genres = {
         title: "Foundation's Edge",
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008117528/x400.jpg',
-        className: 'height240 width50',
         height: '197',
         width: '129',
         depth: '27',
@@ -153,7 +157,6 @@ const genres = {
         title: 'Foundation and Earth',
         author: 'Isaac Asimov',
         front_cover: 'https://i.harperapps.com/hcuk/covers/9780008117535/x400.jpg',
-        className: 'height240 width50',
         height: '197',
         width: '129',
         depth: '29.5',

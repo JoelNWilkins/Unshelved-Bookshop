@@ -3,16 +3,16 @@ import { Bookcase } from '../../components';
 import { genres } from '../../utils';
 
 function Crime({ props }) {
-    const authors = {
-        'christie': {
-            'name': 'Agatha Christie',
-            'books': genres.crime.books
-        }
-    };
+  const authors = {
+    'christie': {
+      'name': 'Agatha Christie',
+      'books': genres.crime.books
+    }
+  };
 
-    return (
-        <Bookcase shelves={authors} grouping='authors' />
-    );
+  return (
+    <Bookcase shelves={authors} grouping='authors' />
+  );
 }
 
 export default Crime;
