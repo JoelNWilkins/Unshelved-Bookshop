@@ -1,0 +1,200 @@
+section > .book {
+    position: absolute;
+}
+
+#aside > .book {
+    position: relative;
+}
+
+:where(section, #aside) > .book {
+    bottom: 0;
+    z-index: 3;
+    cursor: grab;
+    transform-style: preserve-3d;
+    @include transform(translateZ(-25px));
+    @include transition(transform 0.5s 0.1s);
+}
+:where(section, #aside) > .book:hover {
+    @include transform(translateZ(15px));
+}
+
+.book {
+    transform-style: preserve-3d;
+    border: 1px solid white;
+    border-top: none;
+}
+
+section .book.spine {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    writing-mode: vertical-lr;
+    text-orientation: sideways;
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+section .book.top {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    bottom: 100%;
+    transform-origin: bottom;
+    @include transform(rotateX(90deg));
+    background-color: #EDE79F;
+}
+section .book.bottom {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 100%;
+    transform-origin: top;
+    @include transform(rotateX(-90deg));
+}
+section .book.front {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    left: 100%;
+    transform-origin: left;
+    @include transform(rotateY(90deg));
+}
+section .book.back {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    right: 100%;
+    transform-origin: right;
+    @include transform(rotateY(-90deg));
+}
+
+#aside .book.spine {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    /*writing-mode: vertical-lr;
+    text-orientation: sideways;*/
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#aside .book.front {
+    position: absolute;
+    width: 50px;
+    height: 240px;
+    transform-origin: top left;
+    @include transform(rotateX(90deg) rotateZ(-90deg));
+}
+#aside .book.back {
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    top: 100%;
+    transform-origin: top;
+    @include transform(rotateX(-90deg));
+}
+#aside .book.bottom {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    left: 100%;
+    transform-origin: left;
+    @include transform(rotateY(90deg));
+    background-color: #EDE79F;
+}
+#aside .book.top {
+    position: absolute;
+    width: 50px;
+    height: 100%;
+    right: 100%;
+    transform-origin: right;
+    @include transform(rotateY(-90deg));
+    background-color: #EDE79F;
+}
+
+.height200 { height: 200px; }
+.height210 { height: 210px; }
+.height220 { height: 220px; }
+.height230 { height: 230px; }
+.height240 { height: 240px; }
+.height250 { height: 250px; }
+
+.width15 { width: 15px; }
+.width20 { width: 20px; }
+.width25 { width: 25px; }
+.width30 { width: 30px; }
+.width35 { width: 35px; }
+.width40 { width: 40px; }
+.width45 { width: 45px; }
+.width50 { width: 50px; }
+
+#aside .height200 {
+    width: 200px;
+    .book.front {
+        height: 200px;
+    }
+}
+#aside .height210 {
+    width: 210px;
+    .book.front {
+        height: 210px;
+    }
+}
+#aside .height220 {
+    width: 220px;
+    .book.front {
+        height: 220px;
+    }
+}
+#aside .height230 {
+    width: 230px;
+    .book.front {
+        height: 230px;
+    }
+}
+#aside .height240 {
+    width: 240px;
+    .book.front {
+        height: 240px;
+    }
+}
+#aside .height250 {
+    width: 250px;
+    .book.front {
+        height: 250px;
+    }
+}
+
+#aside .width15 { height: 15px; }
+#aside .width20 { height: 20px; }
+#aside .width25 { height: 25px; }
+#aside .width30 { height: 30px; }
+#aside .width35 { height: 35px; }
+#aside .width40 { height: 40px; }
+#aside .width45 { height: 45px; }
+#aside .width50 { height: 50px; }
+
+.red { background-color: red; }
+.green { background-color: green; }
+.blue { background-color: blue; }
+.yellow {
+    background-color: yellow;
+    border: 1px solid white;
+    border-top: none;
+}
+.purple {
+    background-color: #4A2A44;
+    border: 1px solid white;
+    border-top: none;
+}
+
+.red .book:where(.front, .back) { background-color: #900; }
+.green .book:where(.front, .back) { background-color: darkgreen; }
+.blue .book:where(.front, .back) { background-color: navy; }
+.yellow .book:where(.front, .back) { background-color: gold; }
+.purple .book:where(.front, .back) { background-color: #6C4661; }
+
+.yellow .book.spine { color: #333453; }
+.purple .book.spine { color: yellow; }

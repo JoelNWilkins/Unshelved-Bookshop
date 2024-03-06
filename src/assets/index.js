@@ -1,0 +1,1 @@
+export { default as flathead } from './flathead.png';
