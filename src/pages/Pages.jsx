@@ -12,7 +12,8 @@ function Pages() {
       <Route path='/genres/fantasy' element={<Fantasy />} />
       <Route path='/genres/romance' element={<Romance />} />
       <Route path='/genres/classic' element={<Classics />} />
-      <Route path='/authors/*' element={<Authors />} />
+      <Route path='/authors/christie' element={<Authors />} />
+      <Route path='/authors/asimov' element={<Authors />} />
     </Routes>
   );
 }

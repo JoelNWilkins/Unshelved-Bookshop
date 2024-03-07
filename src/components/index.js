@@ -9,3 +9,5 @@ export { default as Shelf } from './Shelf/Shelf';
 export { default as Book } from './Books/Book';
 export { default as Preview } from './Books/Preview';
 export { default as Bookcase } from './Bookcase/Bookcase';
+
+export { default as useComponentWidth } from './useComponentWidth';

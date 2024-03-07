@@ -7,7 +7,7 @@ function Bookcase({ shelves, grouping }) {
       { Object.entries(shelves).reverse().map(([genre, shelf]) => (
         <Shelf key={genre} id={genre} name={shelf.name} grouping={grouping}>
           { shelf.books.map((details) => (
-            <Book key={details?.isbn} details={details}/>
+            <Book key={details?.isbn} details={details} />
           ))}
         </Shelf>
       ))}
@@ -16,7 +16,7 @@ function Bookcase({ shelves, grouping }) {
 }
 
 Bookcase.defaultProps = {
-  grouping: 'genre'
+  grouping: 'genres'
 }
 
 export default Bookcase;

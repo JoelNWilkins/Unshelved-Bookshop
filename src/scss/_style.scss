@@ -27,8 +27,8 @@ body {
 main {
   display: flex;
   flex-direction: column-reverse;
+  justify-content: flex-end;
   min-height: 100%;
   width: calc(100vw - 475px);
-  margin: 30px;
-  margin-bottom: 0;
+  margin: 30px 40px 0 30px;
 }

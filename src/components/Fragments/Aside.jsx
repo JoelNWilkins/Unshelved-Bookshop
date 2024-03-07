@@ -21,7 +21,7 @@ function Aside() {
     if (scrollY < 120) {
       spacer.style.height = (160-scrollY)+"px";
     } else {
-      spacer.style.height = "30px";
+      spacer.style.height = "50px";
     }
   }
 

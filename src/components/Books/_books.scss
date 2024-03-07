@@ -14,6 +14,7 @@
   .spine, .front, .back, .top, .bottom {
     position: absolute;
     transform-style: preserve-3d;
+    font-family: inherit;
   }
 
   .spine {
@@ -24,6 +25,14 @@
     align-items: center;
     justify-content: center;
     border: 1px solid white;
+  }
+
+  .front {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
   }
 
   div:where(.front, .back) {
@@ -38,7 +47,6 @@
 
 section .book {
   position: absolute;
-  z-index: 3;
   height: var(--height);
   width: var(--depth);
 

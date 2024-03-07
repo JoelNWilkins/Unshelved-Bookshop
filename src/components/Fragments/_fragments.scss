@@ -29,7 +29,7 @@ nav {
   background-color: var(--primary-red);
 }
 
-nav a, button {
+nav :where(a, button) {
   display: inline-block;
   border: none;
   margin: 0;
@@ -39,10 +39,40 @@ nav a, button {
   font-family: 'Libre Baskerville', Georgia, 'Times New Roman', Times, serif;
   color: var(--primary-yellow);
   background-color: var(--primary-red);
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--secondary-red);
+  }
 }
 
-nav :where(a, button):hover {
-  background-color: var(--secondary-red);
+/* The container <div> - needed to position the dropdown content */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Links inside the dropdown */
+.dropdown a {
+  display: block;
+  text-align: left;
+}
+
+/* Dropdown Content (Hidden by Default) */
+.dropdown_content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  height: 0;
+  width: 100%;
+  min-width: max-content;
+  box-shadow: 4px 4px 4px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown_content {
+  display: table;
 }
 
 #signin {
@@ -59,7 +89,7 @@ aside {
   justify-content: flex-start;
   width: 475px;
   min-height: 100%;
-  max-height: calc(100vh - 30px);
+  max-height: 100vh;
   padding-left: 5px;
   overflow-x: hidden;
   overflow-y: auto;
@@ -70,6 +100,6 @@ aside {
 }
 
 #spacer {
-  height: 160px;
+  min-height: 50px;
   @include transition(0.5s);
 }

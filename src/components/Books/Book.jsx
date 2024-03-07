@@ -18,7 +18,7 @@ function Book({ details }) {
 
   let style = {...details?.style};
   style['--height'] = (details?.height * 2)+'px';
-  style['--width'] = (details?.width * 2)+'px'; //'100px';
+  style['--width'] = (details?.width * 2)+'px';
   style['--depth'] = (details?.depth * 2)+'px';
   
   return (
@@ -27,7 +27,11 @@ function Book({ details }) {
       { details?.front_cover !== undefined ?
         <img className='front' src={details?.front_cover} alt={details?.front_cover + ' front cover'} />
         :
-        <div className='front' />
+        <div className='front'>
+          <h1>{details?.title}</h1>
+          <br />
+          <h3>{details?.author}</h3>
+        </div>
       }
       { details?.back_cover !== undefined ?
         <img className='back' src={details?.back_cover} alt={details?.back_cover + ' back cover'} />
