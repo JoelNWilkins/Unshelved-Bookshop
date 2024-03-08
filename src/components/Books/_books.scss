@@ -1,5 +1,7 @@
 .book {
   bottom: 0;
+  font-size: var(--font-size);
+  --paper-color: #EDE79F;
   transform-style: preserve-3d;
   @include transform(translateZ(calc(var(--width) - 300px)));
   @include transition(transform 0.5s 0.1s);
@@ -14,6 +16,12 @@
   }
   &:not(.hide) {
     display: block;
+  }
+  &.unavailable {
+    .spine, .front, .back, .top, .bottom {
+      opacity: 0.5;
+      filter: grayscale(75%);
+    }
   }
 
   .spine, .front, .back, .top, .bottom {
@@ -31,6 +39,7 @@
     align-items: center;
     justify-content: center;
     border: 1px solid white;
+    background-color: var(--background-color);
     z-index: 1;
   }
 
@@ -43,14 +52,14 @@
   }
 
   div:where(.front, .back) {
-    background-color: inherit;
+    background-color: var(--background-color);
     filter: brightness(60%);
   }
 
   .top, .bottom {
     outline: 2px solid var(--background-color);
     outline-offset: -2px;
-    background-color: #EDE79F;
+    background-color: var(--paper-color);
   }
 }
 
@@ -163,10 +172,18 @@ aside .book {
     --preview-depth: calc(1.5 * var(--depth));
     height: var(--preview-height);
     width: var(--preview-width);
+    font-size: calc(1.5 * var(--font-size));
     @include perspective(1000px);
     @include perspective-origin(-600px -250px);
     pointer-events: all;
     cursor: default;
+
+    &.unavailable {
+      .spine, .front, .back, .top, .bottom {
+        opacity: unset;
+        filter: unset;
+      }
+    }
   
     .spine {
       height: 100%;
@@ -174,7 +191,6 @@ aside .book {
       right: 100%;
       transform-origin: right;
       @include transform(rotateY(-90deg));
-      background-color: inherit;
       writing-mode: vertical-rl;
       text-orientation: sideways;
       border-top: none;

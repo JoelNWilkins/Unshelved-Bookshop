@@ -24,7 +24,7 @@ function Aside() {
     event.preventDefault();
     let data = event.dataTransfer.getData('text');
     let element = document.getElementById(data);
-    if (element !== null) {
+    if (element !== null && element.parentNode.id !== 'preview') {
       if (element.id.includes(':')) {
         element.id = element.id.split(':')[0] + ':' + Date.now();
       } else {
@@ -32,6 +32,7 @@ function Aside() {
       }
       element.style.left = (50 * Math.random())+'px';
       element.style.zIndex = null;
+      element.classList.remove('hide');
       event.target.appendChild(element);
     }
   }
