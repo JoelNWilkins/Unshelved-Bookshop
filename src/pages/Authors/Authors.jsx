@@ -15,7 +15,6 @@ function Authors({ props }) {
       'books': genres.crime.books
     }
   }
-
   
   if (Object.keys(authors).includes(author)) {
     let books = {}

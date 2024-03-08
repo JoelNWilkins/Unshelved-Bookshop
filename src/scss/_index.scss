@@ -1,18 +1,55 @@
 @import './mixins';
-@import './style';
 @import '../components/Fragments/fragments';
+@import '../components/Books/books';
+@import '../components/Shelves/shelves';
 @import url('https://fonts.googleapis.com/css?family=Libre+Baskerville');
 
-/* body {
+:root {
+  /* Define custom colours */
+  --primary-red: #92140C;
+  --secondary-red: #711009;
+  --primary-green: #373D20;
+  --primary-yellow: #FFBA08;
+  --secondary-yellow: #F5AF00;
+  --primary-brown: #522A00;
+  --secondary-brown: #3D2000;
+  --middle-brown: #472500;
+}
+
+* {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Libre Baskerville', Georgia, 'Times New Roman', Times, serif;
+  background-color: var(--primary-green);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-} */
+#body {
+  display: flex;
+  min-height: calc(100vh - 172px);
+  height: max-content;
+  width: 100%;
+  background-color: var(--primary-brown);
+}
+
+main {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  min-height: 100%;
+  width: calc(100vw - 500px);
+  margin: 30px;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 960px) {
+  main {
+    min-width: calc(100vw - 70px);
+    max-width: calc(100vw - 70px);
+  }
+}

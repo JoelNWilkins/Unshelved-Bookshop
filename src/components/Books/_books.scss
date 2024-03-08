@@ -1,5 +1,3 @@
-@import '../../scss/mixins';
-
 .book {
   bottom: 0;
   transform-style: preserve-3d;
@@ -9,6 +7,13 @@
 
   &:hover {
     @include transform(translateZ(150px));
+  }
+
+  &.hide {
+    display: none;
+  }
+  &:not(.hide) {
+    display: block;
   }
 
   .spine, .front, .back, .top, .bottom {
@@ -41,6 +46,8 @@
   }
 
   .top, .bottom {
+    outline: 2px solid var(--background-color);
+    outline-offset: -2px;
     background-color: #EDE79F;
   }
 }
@@ -141,25 +148,73 @@ aside .book {
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 6;
+  z-index: 101;
   pointer-events: none;
   background-color: rgba(0, 0, 0, 0.5);
   
   .book {
     position: unset;
-    height: calc(1.5 * var(--height));
-    width: calc(1.5 * var(--width));
+    --preview-height: calc(1.5 * var(--height));
+    --preview-width: calc(1.5 * var(--width));
+    --preview-depth: calc(1.5 * var(--depth));
+    height: var(--preview-height);
+    width: var(--preview-width);
+    @include perspective(1000px);
+    @include perspective-origin(-600px -250px);
     pointer-events: all;
     cursor: default;
-
+  
+    .spine {
+      height: 100%;
+      width: var(--preview-depth);
+      right: 100%;
+      transform-origin: right;
+      @include transform(rotateY(-90deg));
+      background-color: inherit;
+      writing-mode: vertical-rl;
+      text-orientation: sideways;
+      border-top: none;
+      border-bottom: none;
+    }
+  
     .front {
       height: 100%;
       width: 100%;
+      left: 0;
+      @include transform(unset);
       filter: unset;
     }
-
-    .spine, .back, .top, .bottom {
+  
+    .back {
+      height: 100%;
+      width: 100%;
       display: none;
+    }
+  
+    .top {
+      height: var(--preview-depth);
+      width: 100%;
+      bottom: 100%;
+      transform-origin: bottom;
+      @include transform(rotateX(90deg));
+    }
+  
+    .bottom {
+      height: var(--preview-depth);
+      width: 100%;
+      top: 100%;
+      transform-origin: top;
+      @include transform(rotateX(-90deg));
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #preview {
+    .book {
+      --preview-height: var(--height);
+      --preview-width: var(--width);
+      --preview-depth: var(--depth);
     }
   }
 }

@@ -12,6 +12,7 @@ function Aside() {
     let data = event.dataTransfer.getData('text');
     let element = document.getElementById(data);
     element.style.left = (50 * Math.random())+'px';
+    element.style.zIndex = null;
     event.target.appendChild(element);
   }
 

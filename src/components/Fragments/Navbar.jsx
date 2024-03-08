@@ -1,19 +1,8 @@
+import { fireEvent } from '@testing-library/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function Navbar() {
-  /*
-  function showAside() {
-    document.getElementById('aside').style.display = 'flex';
-    document.getElementById('main').style.width = 'calc(100vw - 350px)';
-  }
-
-  function hideAside() {
-    document.getElementById('aside').style.display = 'none';
-    document.getElementById('main').style.width = '100vw';
-  }
-  */
-
   function toggleAside() {
     let aside = document.getElementById('aside');
     let main = document.getElementsByTagName('main')[0];
@@ -22,10 +11,11 @@ function Navbar() {
       main.style.width = '100vw';
     } else {
       aside.style.display = 'flex';
-      main.style.width = 'calc(100vw - 475px)';
+      main.style.width = 'calc(100vw - 500px)';
     }
 
-    // Need to call the handleWidthChange function for each shelf somehow
+    // Fire a resize event to cause the books on the shelves to rerender
+    fireEvent.resize(window);
   }
 
   return (
@@ -33,7 +23,7 @@ function Navbar() {
       <Link to='/'>Home</Link>
       <div className='dropdown'>
         <Link to='/genres'>Genres</Link>
-        <div class='dropdown_content'>
+        <div className='dropdown_content'>
           <Link to='/genres/crime'>Crime</Link>
           <Link to='/genres/scifi'>Science Fiction</Link>
           <Link to='/genres/fantasy'>Fantasy</Link>
@@ -43,7 +33,7 @@ function Navbar() {
       </div>
       <div className='dropdown'>
         <button id='authors'>Authors</button>
-        <div class='dropdown_content'>
+        <div className='dropdown_content'>
           <Link to='/authors/christie'>Agatha Christie</Link>
           <Link to='/authors/asimov'>Isaac Asimov</Link>
         </div>

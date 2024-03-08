@@ -1,0 +1,122 @@
+section {
+  position: relative;
+  height: var(--height);
+  width: 100%;
+  margin-bottom: 50px;
+  display: flex;
+  justify-content: flex-start;
+  align-content: flex-end;
+  align-items: flex-end;
+  vertical-align: bottom;
+  overflow: visible;
+  @include perspective(2000px);
+  @include perspective-origin(60% -100px);
+}
+
+.shelf {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  border: 3px solid var(--secondary-brown);
+  transform-style: preserve-3d;
+  pointer-events: none;
+
+  * {
+    position: absolute;
+    transform-style: preserve-3d;
+    background-color: var(--secondary-brown);
+    pointer-events: none;
+  }
+
+  .back {
+    height: 100%;
+    width: 100%;
+    @include transform(translateZ(-var(--depth)));
+    background-color: var(--secondary-brown);
+  }
+
+  .top {
+    height: var(--depth);
+    width: 100%;
+    bottom: 100%;
+    @include transform-origin(bottom);
+    @include transform(rotateX(90deg));
+    background-color: var(--primary-brown);
+  }
+
+  .bottom {
+    height: var(--depth);
+    width: 100%;
+    top: 100%;
+    @include transform-origin(top);
+    @include transform(rotateX(-90deg));
+    background-color: var(--middle-brown);
+  }
+
+  .left {
+    height: 100%;
+    width: var(--depth);
+    right: 100%;
+    @include transform-origin(right);
+    @include transform(rotateY(-90deg));
+    background-color: var(--middle-brown);
+  }
+
+  .right {
+    height: 100%;
+    width: var(--depth);
+    left: 100%;
+    @include transform-origin(left);
+    @include transform(rotateY(90deg));
+    background-color: var(--secondary-brown);
+  }
+}
+
+@keyframes rotate {
+  from {
+    @include transform(rotate(0));
+  }
+  to {
+    @include transform(rotateY(360deg));
+  }
+}
+
+label {
+  position: absolute;
+  bottom: -32px;
+  width: 100%;
+  text-align: center;
+  @include transform(translateZ(10px));
+  
+  a {
+    padding: 0;
+    border-radius: 5px;
+    border: 3px outset #FFC533;
+    text-decoration: none;
+    color: black;
+    background-color: var(--primary-yellow);
+
+    /*
+    &::before, &::after {
+      display: inline-block;
+      height: 10px;
+      width: 10px;
+      margin: 1px 5px;
+      background-size: 10px;
+      background-image: url("../../assets/flathead.png");
+      content: "";
+    } */
+
+    &:hover {
+      color: #140F00;
+      background-color: var(--secondary-yellow);
+    }
+  }
+}
+
+.screw {
+  width: 10px;
+  margin: 1px 5px;
+}
