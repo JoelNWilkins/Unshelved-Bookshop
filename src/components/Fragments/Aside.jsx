@@ -1,6 +1,19 @@
 import React from 'react';
 
 function Aside() {
+  function drag(event) {
+    if (event.target.nodeName !== '#text') {
+      let element = event.target;
+      console.log(element);
+      if (element.id === '') {
+        element = element.parentNode;
+      }
+      if (element.classList.contains('book')) {
+        event.dataTransfer.setData('text', element.id);
+      }
+    }
+  }
+
   function allowDrop(event) {
     if (event.target.id === 'aside') {
       event.preventDefault();
@@ -11,9 +24,16 @@ function Aside() {
     event.preventDefault();
     let data = event.dataTransfer.getData('text');
     let element = document.getElementById(data);
-    element.style.left = (50 * Math.random())+'px';
-    element.style.zIndex = null;
-    event.target.appendChild(element);
+    if (element !== null) {
+      if (element.id.includes(':')) {
+        element.id = element.id.split(':')[0] + ':' + Date.now();
+      } else {
+        element.id += ':' + Date.now();
+      }
+      element.style.left = (50 * Math.random())+'px';
+      element.style.zIndex = null;
+      event.target.appendChild(element);
+    }
   }
 
   function scrollResize() {
@@ -26,6 +46,7 @@ function Aside() {
     }
   }
 
+  document.addEventListener("dragstart", drag);
   document.addEventListener("scroll", scrollResize);
 
   return (

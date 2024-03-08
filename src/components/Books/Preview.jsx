@@ -3,7 +3,12 @@ import React, { Children } from 'react';
 function Preview({ children }) {
   function closePreview(event) {
     event.stopPropagation();
-    if (event.code === 'Escape' || event.target.parentNode.parentNode.id !== 'preview') {
+    // Close the preview when the user pressess the escape key
+    // or when they click off of the book
+    if (
+      (event.type === 'keydown' && event.code === 'Escape') ||
+      (event.type === 'click' && event.target.parentNode.parentNode.id !== 'preview')
+    ) {
       let preview = document.getElementById('preview');
       if (preview.childElementCount > 0) {
         const id = preview.firstChild.id;

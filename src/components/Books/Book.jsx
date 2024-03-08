@@ -2,10 +2,6 @@ import React from 'react';
 import christmasPudding from '../../assets/9780007121083.jpg';
 
 function Book({ details }) {
-  function drag(event) {
-    event.dataTransfer.setData('text', event.target.id);
-  }
-
   function preview(event) {
     let preview = document.getElementById('preview');
     let element = event.target;
@@ -25,7 +21,7 @@ function Book({ details }) {
   style['--background-color'] = details?.style?.backgroundColor;
   
   return (
-    <div id={details?.isbn} className='book' style={style} draggable='true' onDragStart={drag} onDoubleClick={preview}>
+    <div id={details?.isbn} className='book' style={style} draggable='true' onDoubleClick={preview}>
       <div className='top' />
       { details?.front_cover !== undefined ?
         <>
