@@ -12,10 +12,12 @@ function Book({ details }) {
     element.classList.add('hide');
   }
 
-  let style = {...details?.style};
-  style['--height'] = (details?.height * 2)+'px';
-  style['--width'] = (details?.width * 2)+'px';
-  style['--depth'] = (details?.depth * 2)+'px';
+  let style = {
+    ...details?.style,
+    '--height': (details?.height * 2)+'px',
+    '--width': (details?.width * 2)+'px',
+    '--depth': (details?.depth * 2)+'px'
+  };
   
   return (
     <div

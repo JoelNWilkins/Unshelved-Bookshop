@@ -109,6 +109,16 @@ section .book {
   }
 }
 
+section .book:not(.hide) + .book.leaning {
+  @include transform-origin(bottom left);
+  @include transform(translateZ(calc(var(--width) - 300px)) translateX(calc(0.26 * var(--height))) rotateZ(-15deg));
+
+  &:hover {
+    //@include transform(translateX(95px) rotateZ(-30deg) translateZ(150px));
+    @include transform(translateX(calc(0.1 * var(--height))) translateZ(150px));
+  }
+}
+
 aside .book {
   position: relative;
   height: var(--depth);
