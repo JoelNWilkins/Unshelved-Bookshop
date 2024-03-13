@@ -4,12 +4,16 @@ function Book({ details }) {
   function preview(event) {
     let preview = document.getElementById('preview');
     let element = event.target;
-    if (element.className !== 'book') {
+    if (element.parentNode.classList.contains('book')) {
+      // For the case when the user has clicked a child element of a book
+      // (e.g. the front cover or the spine), then take the parent node
       element = element.parentNode;
     }
-    preview.innerHTML = element.outerHTML;
-    preview.style.display = 'flex';
-    element.classList.add('hide');
+    if (element.classList.contains('book')) {
+      preview.innerHTML = element.outerHTML;
+      preview.style.display = 'flex';
+      element.classList.add('hide');
+    }
   }
 
   let style = {
@@ -42,7 +46,11 @@ function Book({ details }) {
         :
         <div className='back' />
       }
-      <div className='spine'>{details?.title}</div>
+      { details?.spine !== undefined ?
+        <img className='spine' src={details?.spine} alt={details?.title + ' spine'} />
+        :
+        <div className='spine'>{details?.title}</div>
+      }
     </div>
   )
 }

@@ -2,6 +2,7 @@
   bottom: 0;
   font-size: var(--font-size);
   --paper-color: #EDE79F;
+  --border-color: var(--background-color);
   transform-style: preserve-3d;
   @include transform(translateZ(calc(var(--width) - 300px)));
   @include transition(transform 0.5s 0.1s);
@@ -38,7 +39,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 1px solid white;
+    border: 1px solid var(--border-color);
     background-color: var(--background-color);
     z-index: 1;
   }
@@ -125,24 +126,30 @@ aside .book {
   width: var(--height);
 
   .spine {
-    padding-top: 1px;
-    border-left: none;
-    border-right: none;
+    height: var(--height);
+    width: var(--depth);
+    padding-right: 1px;
+    border-top: none;
+    border-bottom: none;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    transform-origin: top left;
+    @include transform(rotateZ(-90deg) translateX(calc(var(--depth) * -1)));
   }
 
   .front {
-    width: var(--width);
     height: var(--height);
+    width: var(--width);
     transform-origin: top left;
     @include transform(rotateX(90deg) rotateZ(-90deg));
   }
   
   .back {
-    width: 100%;
-    height: var(--width);
+    height: var(--height);
+    width: var(--width);
     top: 100%;
-    transform-origin: top;
-    @include transform(rotateX(-90deg));
+    transform-origin: top left;
+    @include transform(scale(-1) rotateX(90deg) rotateZ(90deg) translateX(calc(var(--width) * -1)));
   }
 
   .top {
@@ -219,6 +226,9 @@ aside .book {
       height: 100%;
       width: 100%;
       display: none;
+      /* right: 0;
+      transform-origin: right;
+      @include transform(translateZ(calc(var(--preview-depth) * -1))); */
     }
   
     .top {
