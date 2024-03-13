@@ -1,5 +1,6 @@
 export { default as Header } from './Fragments/Header';
 export { default as Navbar } from './Fragments/Navbar';
+export { default as SignInOut } from './Fragments/SignInOut';
 export { default as Aside } from './Fragments/Aside';
 export { default as Footer } from './Fragments/Footer';
 

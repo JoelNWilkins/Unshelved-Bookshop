@@ -1,0 +1,101 @@
+.form_wrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: fit-content;
+  width: fit-content;
+  font-size: large;
+  background-color: whitesmoke;
+  border-radius: 20px;
+  width: 500px;
+  padding: 20px 40px;
+
+  h1 {
+    margin-bottom: 10px;
+  }
+
+  label {
+    display: inline;
+    font-size: 16px;
+    text-align: left;
+    color: gray;
+    margin-left: 6px;
+    margin-bottom: 0;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  input, button {
+    width: 100%;
+    background: inherit;
+    color: gray;
+    border: 2px solid gray;
+    border-radius: 10px;
+    font-size: inherit;
+    margin: 0;
+    margin-bottom: 8px;
+    padding: 12px;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+  }
+  
+  input:read-only {
+    cursor: not-allowed;
+  }
+
+  input:where(:hover, :focus) {
+    outline: none;
+  }
+  
+  input:not(:read-only):where(:hover, :focus) {
+    color: black;
+    background-color: white;
+    border: 2px solid black;
+    ~ label { color: black; }
+  }
+
+  input[type=submit], input[type=button], button {
+    width: 50%;
+    min-width: fit-content;
+    margin-top: 5px;
+
+    &:hover {
+      color: black;
+      background-color: white;
+      border: 2px solid black;      
+    }
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column-reverse;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .links {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 10px;
+
+    a {
+      font-size: smaller;
+      text-decoration: unset;
+      color: gray;
+      &:hover { color: black; }
+    }
+  }
+}

@@ -3,6 +3,12 @@ import React, { Children } from 'react';
 function Preview({ children }) {
   function closePreview(event) {
     event.stopPropagation();
+    
+    // Ignore when the user clicks the sign in/out button
+    if (event.target.id === 'sign_in_out') {
+      return
+    }
+
     // Close the preview when the user presses the escape key
     // or when they click off of the book
     if (

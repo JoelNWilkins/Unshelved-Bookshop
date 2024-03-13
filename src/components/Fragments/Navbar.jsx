@@ -1,8 +1,9 @@
-import { fireEvent } from '@testing-library/react';
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { fireEvent } from '@testing-library/react';
+import { SignInOut } from '../';
 
-function Navbar() {
+function Navbar({ name, setName, setToken }) {
   function toggleAside() {
     let aside = document.getElementById('aside');
     let main = document.getElementsByTagName('main')[0];
@@ -39,7 +40,7 @@ function Navbar() {
         </div>
       </div>
       <button onClick={toggleAside}>My Stack</button>
-      <Link to='/' id='signin'>Sign In</Link>
+      <SignInOut name={name} setName={setName} setToken={setToken} />
     </nav>
   );
 }

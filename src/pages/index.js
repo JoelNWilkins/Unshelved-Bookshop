@@ -9,3 +9,6 @@ export { default as Classics } from './Genres/Classics';
 
 export { default as Authors } from './Authors/Authors';
 export { default as Christie } from './Authors/Christie';
+
+export { default as Register } from './Accounts/Register';
+export { default as SignIn } from './Accounts/SignIn';

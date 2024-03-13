@@ -44,15 +44,12 @@
     z-index: 1;
   }
 
-  .front {
+  .front, .back {
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  }
-
-  div:where(.front, .back) {
     background-color: var(--background-color);
     filter: brightness(60%);
   }

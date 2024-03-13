@@ -33,7 +33,7 @@ function Book({ details }) {
     >
       <div className='top' />
       { details?.front_cover !== undefined ?
-        <img className='front' src={details?.front_cover} alt={details?.title + ' front cover'} />
+        <img className='front' src={details?.front_cover} alt={details?.title + ' by ' + details?.author} />
         :
         <div className='front'>
           <h1>{details?.title}</h1>
