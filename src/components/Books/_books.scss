@@ -51,7 +51,10 @@
     align-items: center;
     justify-content: center;
     background-color: var(--background-color);
-    filter: brightness(60%);
+  }
+
+  div:where(.front, .back) {
+    filter: brightness(80%);
   }
 
   .top, .bottom {

@@ -11,7 +11,7 @@ function Authors({ props }) {
   }
 
   return (
-    <Bookcase shelves={books} grouping='series' />
+    <Bookcase shelves={books} grouping='authors/christie/series' />
   );
 }
 

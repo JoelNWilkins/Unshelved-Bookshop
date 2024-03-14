@@ -40,7 +40,8 @@ section {
   
       &:hover {
         color: #140F00;
-        background-color: var(--secondary-yellow);
+        filter: brightness(90%);
+        //filter: saturate(110%);
       }
     }
   }  

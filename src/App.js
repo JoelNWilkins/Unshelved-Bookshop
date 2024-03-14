@@ -1,13 +1,14 @@
 import React from 'react';
 import { Header, Navbar, Aside, Footer, Preview } from './components';
 import { Pages } from './pages';
-import { useName, useToken, drag, allowDrop, removeFromStack } from './utils';
+import { useName, useToken, drag, allowDrop, removeFromStack, preview } from './utils';
 
 function App() {
   const { name, setName } = useName();
   const { token, setToken } = useToken();
 
-  document.addEventListener("dragstart", drag);
+  document.addEventListener('dragstart', drag);
+  document.addEventListener('dblclick', preview);
 
   return (
     <>
