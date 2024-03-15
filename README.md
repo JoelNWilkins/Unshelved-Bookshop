@@ -1,5 +1,15 @@
 # 7097CEM - Modern Web Technologies
 
+## Running
+
+### Start the frontend
+
+`npm start`
+
+### Start the backend
+
+`node backend/server.js` or `nodemon backend/server.js` to enable hot updates.
+
 ## Functionality
 
 ### Plaques

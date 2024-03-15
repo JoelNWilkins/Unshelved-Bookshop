@@ -17,14 +17,16 @@ function SignIn({ setName, setToken }) {
     
     const response = await postData("/login", formData);
     if (response === undefined) {
-        alert("Could not connect to the login server. Please try again later.")
+      alert("Could not connect to the login server. Please try again later.")
     } else if ("token" in response) {
-        setName(formData.username);
-        setToken(response.token);
-        navigate("/");
+      setName(formData.username);
+      setToken(response.token);
+      navigate("/");
+    } else if (response?.error === 'Invalid username or password') {
+      alert('Invalid username or password');
     } else {
-        console.log(response);
-        alert("Please check your responses and try again.");
+      console.log(response);
+      alert("Please check your responses and try again.");
     }
   }
 
