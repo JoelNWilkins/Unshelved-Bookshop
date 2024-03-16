@@ -35,8 +35,9 @@ function Navbar({ name, setName, setToken }) {
       <div className='dropdown'>
         <button id='authors'>Authors</button>
         <div className='dropdown_content'>
-          <Link to='/authors/christie'>Agatha Christie</Link>
-          <Link to='/authors/asimov'>Isaac Asimov</Link>
+          <Link to='/authors/agatha-christie'>Agatha Christie</Link>
+          <Link to='/authors/isaac-asimov'>Isaac Asimov</Link>
+          <Link to='/authors/jane-austen'>Jane Austen</Link>
         </div>
       </div>
       <button onClick={toggleAside}>My Stack</button>

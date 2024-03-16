@@ -35,12 +35,51 @@ saveData = async (col, document, data) => {
   }
 }
 
+saveDataInSubcollection = async (col, document, subcol, details, data) => {
+  try {
+    const db = getFirestore();
+    if (document) {
+      docRef = doc(db, col, document);
+      await setDoc(docRef, details);
+    } else {
+      const colRef = collection(db, col);
+      docRef = await addDoc(colRef, details);
+    }
+    const subColRef = collection(docRef, subcol);
+    for (let book of data) {
+      const subDocRef = doc(subColRef, book.isbn)
+      await setDoc(subDocRef, book);
+    }
+    return docRef.id;
+  } catch(err) {
+    console.log(err);
+  }
+}
+
 getData = async (col, document) => {
   try {
     const db = getFirestore();
     const docRef = doc(db, col, document);
     const docSnap = await getDoc(docRef);
     return docSnap.data();
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+getDataInSubcollection = async (col, document, subcol) => {
+  try {
+    const db = getFirestore();
+    const docRef = doc(db, col, document);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+    const subColRef = collection(docRef, subcol)
+    const subColSnap = await getDocs(subColRef);
+    data.books = [];
+    for (let subDoc of subColSnap.docs) {
+      data.books.push(subDoc.data());
+    }
+    return data;
   } catch(err) {
     console.log(err);
   }
@@ -69,5 +108,7 @@ module.exports = {
   'saveData': saveData,
   'getData': getData,
   'deleteData': deleteData,
-  'updateData': updateData
+  'updateData': updateData,
+  'saveDataInSubcollection': saveDataInSubcollection,
+  'getDataInSubcollection': getDataInSubcollection
 }

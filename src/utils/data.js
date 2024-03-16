@@ -14,6 +14,13 @@ const robots = {
   '--font-size': '18px'
 };
 
+const galacticEmpire = {
+  color: '#F9E574',
+  '--background-color': '#170F1A',
+  '--border-color': 'white',
+  '--font-size': '18px'
+};
+
 const foundation = {
   color: '#333453',
   '--background-color': 'yellow',
@@ -476,6 +483,36 @@ const genres = {
         style: robots
       },
       {
+        isbn: '9780008372347',
+        title: 'The Stars, Like Dust',
+        author: 'Isaac Asimov',
+        front_cover: 'https://i.harperapps.com/hcuk/covers/9780008372347/x400.jpg',
+        height: '198',
+        width: '129',
+        depth: '15',
+        style: galacticEmpire
+      },
+      {
+        isbn: '9780008516178',
+        title: 'The Currents of Space',
+        author: 'Isaac Asimov',
+        front_cover: 'https://i.harperapps.com/hcuk/covers/9780008516178/x400.jpg',
+        height: '198',
+        width: '129',
+        depth: '20',
+        style: galacticEmpire
+      },
+      {
+        isbn: '9780008372354',
+        title: 'Pebble in the Sky',
+        author: 'Isaac Asimov',
+        front_cover: 'https://i.harperapps.com/hcuk/covers/9780008372354/x400.jpg',
+        height: '198',
+        width: '129',
+        depth: '15',
+        style: galacticEmpire
+      },
+      {
         isbn: '9780008117481',
         title: 'Prelude to Foundation',
         author: 'Isaac Asimov',
@@ -507,6 +544,16 @@ const genres = {
         style: foundation
       },
       {
+        isbn: '9780008117504',
+        title: 'Foundation and Empire',
+        author: 'Isaac Asimov',
+        front_cover: 'https://i.harperapps.com/hcuk/covers/9780008117504/x400.jpg',
+        height: '198',
+        width: '129',
+        depth: '15.2',
+        style: foundation
+      },
+      {
         isbn: '9780008117511',
         title: 'Second Foundation',
         author: 'Isaac Asimov',
@@ -514,16 +561,6 @@ const genres = {
         height: '198',
         width: '129',
         depth: '15.2',
-        style: foundation
-      },
-      {
-        isbn: '9780008117504',
-        title: 'Foundation and Empire',
-        author: 'Isaac Asimov',
-        front_cover: 'https://i.harperapps.com/hcuk/covers/9780008117504/x400.jpg',
-        height: '198',
-        width: '129',
-        depth: '26',
         style: foundation
       },
       {

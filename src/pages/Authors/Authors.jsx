@@ -1,24 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bookcase } from '../../components';
-import { genres } from '../../utils';
+import { getData } from '../../utils';
 
-function Authors({ props }) {
+function Authors() {
   const author = window.location.pathname.replace('/authors/', '');
+  const [books, setBooks] = useState({});
 
-  let authors = {
-    'asimov': {
-      'name': 'Isaac Asimov',
-      'books': genres.scifi.books
-    },
-    'christie': {
-      'name': 'Agatha Christie',
-      'books': genres.crime.books
-    }
-  }
+  useEffect(() => {
+    getData(`/data/authors/${author}`, null)
+      .then(data => { console.log(data); setBooks({data}); });
+  }, [author, setBooks]);
   
-  if (Object.keys(authors).includes(author)) {
-    let books = {}
-    books[author] = authors[author]
+  if (author) {
     return (
       <Bookcase shelves={books} grouping='authors' />
     );

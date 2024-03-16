@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { IconContext } from "react-icons";
 import { GiRead } from 'react-icons/gi';
 
 function SignInOut({ name, setName, setToken }) {

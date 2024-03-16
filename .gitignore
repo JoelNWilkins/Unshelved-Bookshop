@@ -23,5 +23,8 @@ yarn-debug.log*
 yarn-error.log*
 
 /backend/helloworld.js
+/backend/data.js
+/backend/populateDatabase.js
+
 /old
 /public/logo*

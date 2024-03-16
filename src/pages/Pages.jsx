@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-import { Genres, Crime, ScienceFiction, Fantasy, Romance, Classics, Authors, Christie, Register, SignIn } from './';
+import { Genres, Crime, ScienceFiction, Fantasy, Romance, Classics, Authors, Register, SignIn } from './';
 
 function Pages({ name, setName, token, setToken }) {
   return (
@@ -12,8 +12,8 @@ function Pages({ name, setName, token, setToken }) {
       <Route path='/genres/fantasy' element={<Fantasy />} />
       <Route path='/genres/romance' element={<Romance />} />
       <Route path='/genres/classic' element={<Classics />} />
-      <Route path='/authors/christie/*' element={<Christie />} />
-      <Route path='/authors/asimov/*' element={<Authors />} />
+
+      <Route path='/authors/*' element={<Authors />} />
       
       <Route path='/register' element={<Register setName={setName} setToken={setToken} />} />
       <Route path='/login' element={<SignIn setName={setName} setToken={setToken} />} />

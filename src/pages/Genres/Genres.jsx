@@ -1,10 +1,17 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { Bookcase } from '../../components';
-import { genres } from '../../utils';
+import { getData } from '../../utils';
 
 function Genre() {
+  const [books, setBooks] = useState({});
+
+  useEffect(() => {
+    getData(`/data/genres/all`, null)
+      .then(data => { console.log(data); setBooks(data); });
+  }, [setBooks]);
+  
   return (
-    <Bookcase shelves={genres} grouping='genres' />
+    <Bookcase shelves={books} grouping='genres' />
   );
 }
 
