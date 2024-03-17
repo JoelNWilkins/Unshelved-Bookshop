@@ -12,12 +12,9 @@
     @include transform(translateZ(150px));
   }
 
-  &.hide {
-    display: none;
-  }
-  &:not(.hide) {
-    display: block;
-  }
+  &.hide { display: none; }
+  &:not(.hide) { display: block; }
+
   &.unavailable {
     .spine, .front, .back, .top, .bottom {
       opacity: 0.5;
@@ -25,7 +22,7 @@
     }
   }
 
-  .spine, .front, .back, .top, .bottom {
+  .spine, .front, .back, .top, .bottom, .edge {
     position: absolute;
     transform-style: preserve-3d;
     font-family: inherit;
@@ -53,6 +50,15 @@
     background-color: var(--background-color);
   }
 
+  .back {
+    padding: 5%;
+    font-size: xx-small;
+
+    p {
+      margin-bottom: 10px;
+    }
+  }
+
   div:where(.front, .back) {
     filter: brightness(80%);
   }
@@ -61,6 +67,15 @@
     outline: 2px solid var(--background-color);
     outline-offset: -2px;
     background-color: var(--paper-color);
+  }
+
+  .edge {
+    display: none;
+    background-color: var(--paper-color);
+  }
+
+  .page {
+    display: none;
   }
 }
 
@@ -201,6 +216,21 @@ aside .book {
         filter: unset;
       }
     }
+
+    &.flipped {
+      .spine, .front {
+        display: none;
+      }
+
+      .edge {
+        display: block;
+      }
+    }
+    &:not(.flipped) {
+      .edge, .back {
+        display: none;
+      }
+    }
   
     .spine {
       height: 100%;
@@ -214,18 +244,36 @@ aside .book {
       border-bottom: none;
     }
   
+    .edge {
+      height: 100%;
+      width: var(--preview-depth);
+      right: 100%;
+      background-color: var(--paper-color);
+      border-top: 1px solid black;
+      transform-origin: right;
+      @include transform(rotateY(-90deg));
+      filter: grayscale(25%);
+    }
+  
     .front {
       height: 100%;
       width: 100%;
       left: 0;
       @include transform(unset);
       filter: unset;
+      cursor: pointer;
+      &.hidden { display: none; }
     }
   
     .back {
       height: 100%;
       width: 100%;
-      display: none;
+      left: 0;
+      font-size: small;
+      @include transform(unset);
+      filter: unset;
+      cursor: auto;
+      &.hidden { display: none; }
       /* right: 0;
       transform-origin: right;
       @include transform(translateZ(calc(var(--preview-depth) * -1))); */
@@ -235,6 +283,7 @@ aside .book {
       height: var(--preview-depth);
       width: 100%;
       bottom: 100%;
+      outline: none;
       transform-origin: bottom;
       @include transform(rotateX(90deg));
     }
@@ -246,6 +295,62 @@ aside .book {
       transform-origin: top;
       @include transform(rotateX(-90deg));
     }
+
+    #inside {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      right: 100%;
+      background-color: white; //var(--paper-color);
+      transform-origin: top right;
+      @include transform(rotateY(15deg));
+      cursor: pointer;
+    }
+    
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      padding: 5%;
+      color: black;
+      background-color: var(--paper-color);
+      border-left: 1px solid black;
+      filter: grayscale(25%);
+      cursor: auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      text-transform: none;
+
+      h1 {
+        font-size: 1em;
+      }
+
+      h2 {
+        font-size: 0.75em;
+        margin-bottom: 0.75em;
+      }
+
+      p {
+        margin-top: 0.75em;
+        font-size: small;
+      }
+    }
+  }
+
+  #flip_book {
+    margin: 20px;
+    margin-right: -60px;
+    padding: 5px;
+    border-radius: 100%;
+    outline: none;
+    pointer-events: all;
   }
 }
 

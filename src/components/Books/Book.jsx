@@ -16,6 +16,13 @@ function Book({ details }) {
       draggable='true'
     >
       <div className='top' />
+      <div className='page'>
+        <h1>{details?.title}</h1>
+        <h2>{details?.author}</h2>
+        { details?.description && details?.description.map((line) => (
+          <p>{line}</p>
+        ))}
+      </div>
       { details?.images?.front !== undefined ?
         <img className='front' src={details?.images?.front} alt={details?.title + ' by ' + details?.author} />
         :
@@ -28,13 +35,18 @@ function Book({ details }) {
       { details?.images?.back !== undefined ?
         <img className='back' src={details?.images?.back} alt={details?.title + ' back cover'} />
         :
-        <div className='back' />
+        <div className='back'>
+          { details?.description && details?.description.map((line) => (
+            <p>{line}</p>
+          ))}
+        </div>
       }
       { details?.images?.spine !== undefined ?
         <img className='spine' src={details?.images?.spine} alt={details?.title + ' spine'} />
         :
         <div className='spine'>{details?.title}</div>
       }
+      <div className='edge' />
     </div>
   )
 }
