@@ -35,6 +35,18 @@ saveData = async (col, document, data) => {
   }
 }
 
+saveDataBatch = async (col, data) => {
+  try {
+    const db = getFirestore();
+    Object.keys(data).forEach(async (document) => {
+      docRef = doc(db, col, document);
+      await setDoc(docRef, data[document]);
+    });
+  } catch(err) {
+    console.log(err);
+  }
+}
+
 saveDataInSubcollection = async (col, document, subcol, details, data) => {
   try {
     const db = getFirestore();
@@ -62,6 +74,21 @@ getData = async (col, document) => {
     const docRef = doc(db, col, document);
     const docSnap = await getDoc(docRef);
     return docSnap.data();
+  } catch(err) {
+    console.log(err);
+  }
+}
+
+getDataBatch = async (col) => {
+  try {
+    const db = getFirestore();
+    const colRef = collection(db, col);
+    const querySnap = await getDocs(colRef);
+    let data = {};
+    querySnap.forEach((docSnap) => {
+      data[docSnap.id] = docSnap.data();
+    });
+    return data;
   } catch(err) {
     console.log(err);
   }
@@ -110,5 +137,7 @@ module.exports = {
   'deleteData': deleteData,
   'updateData': updateData,
   'saveDataInSubcollection': saveDataInSubcollection,
-  'getDataInSubcollection': getDataInSubcollection
+  'getDataInSubcollection': getDataInSubcollection,
+  'saveDataBatch': saveDataBatch,
+  'getDataBatch': getDataBatch
 }

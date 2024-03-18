@@ -317,6 +317,7 @@ aside .book {
       padding: 5%;
       color: black;
       background-color: var(--paper-color);
+      border-top: 1px solid black;
       border-left: 1px solid black;
       filter: grayscale(25%);
       cursor: auto;
@@ -327,6 +328,7 @@ aside .book {
       align-items: center;
       text-align: center;
       text-transform: none;
+      font-weight: normal;
 
       h1 {
         font-size: 1em;
@@ -345,12 +347,25 @@ aside .book {
   }
 
   #flip_book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     margin: 20px;
     margin-right: -60px;
     padding: 5px;
-    border-radius: 100%;
     outline: none;
+    border: 3px solid black;
+    border-radius: 100%;
     pointer-events: all;
+    cursor: pointer;
+    background-color: var(--primary-red);
+    @include transition(all 0s);
+
+    &:hover {
+      background-color: lighten(#92140C, 10%);
+      @include transform(rotate(180deg));
+      @include transition(all 0.5s);
+    }
   }
 }
 

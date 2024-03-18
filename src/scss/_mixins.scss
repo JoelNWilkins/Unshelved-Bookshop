@@ -19,6 +19,11 @@
           transition: $property;
 }
 
+@mixin animation($property) {
+  -webkit-animation: $property;
+          animation: $property;
+}
+
 @mixin perspective($property) {
   -webkit-perspective: $property;
      -moz-perspective: $property;

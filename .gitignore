@@ -25,6 +25,7 @@ yarn-error.log*
 /backend/helloworld.js
 /backend/data.js
 /backend/populateDatabase.js
+/backend/moveBooks.js
 
 /old
 /public/logo*

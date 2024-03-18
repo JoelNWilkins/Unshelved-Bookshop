@@ -1,10 +1,9 @@
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
-const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
-const { saveData, getData, updateData, deleteData, getDataInSubcollection } = require('./firebase.js');
+const { saveData, getData, updateData, deleteData, getDataInSubcollection, getDataBatch } = require('./firebase.js');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -16,19 +15,22 @@ app.use(cors());
 // Parse JSON requests
 app.use(bodyParser.json());
 
+app.get('/api/books', async (req, res) => {
+    const books = await getDataBatch('books');
+    res.json(books);
+});
+
 app.get('/api/data/:col/:document', async (req, res) => {
     const { col, document } = req.params;
     console.log(col, document);
     if (['authors'].includes(col)) {
-        data = await getDataInSubcollection(col, document, 'books');
-        console.log(data);
+        data = await getData(col, document);
         res.json(data);
     } else if (col === 'genres') {
         data = {}
         data['agatha-christie'] = await getDataInSubcollection('authors', 'agatha-christie', 'books');
         data['isaac-asimov'] = await getDataInSubcollection('authors', 'isaac-asimov', 'books');
         data['jane-austen'] = await getDataInSubcollection('authors', 'jane-austen', 'books');
-        console.log(data);
         res.json(data);
     } else {
         res.status(401).json({ error: 'Unauthorized' });

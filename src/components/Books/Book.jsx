@@ -11,7 +11,7 @@ function Book({ details }) {
   return (
     <div
       id={details?.isbn}
-      className={`book${ details?.unavailable === true ? ' unavailable' : '' }`}
+      className={`book${ details?.stock <= 0 ? ' unavailable' : '' }`}
       style={style}
       draggable='true'
     >
@@ -23,15 +23,6 @@ function Book({ details }) {
           <p>{line}</p>
         ))}
       </div>
-      { details?.images?.front !== undefined ?
-        <img className='front' src={details?.images?.front} alt={details?.title + ' by ' + details?.author} />
-        :
-        <div className='front'>
-          <h1>{details?.title}</h1>
-          <br />
-          <h3>{details?.author}</h3>
-        </div>
-      }
       { details?.images?.back !== undefined ?
         <img className='back' src={details?.images?.back} alt={details?.title + ' back cover'} />
         :
@@ -39,6 +30,15 @@ function Book({ details }) {
           { details?.description && details?.description.map((line) => (
             <p>{line}</p>
           ))}
+        </div>
+      }
+      { details?.images?.front !== undefined ?
+        <img className='front' src={details?.images?.front} alt={details?.title + ' by ' + details?.author} />
+        :
+        <div className='front'>
+          <h1>{details?.title}</h1>
+          <br />
+          <h3>{details?.author}</h3>
         </div>
       }
       { details?.images?.spine !== undefined ?

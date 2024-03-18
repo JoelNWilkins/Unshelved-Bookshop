@@ -4,7 +4,7 @@
 
 ### Start the frontend
 
-`npm start`
+`npm start` will start the frontend on http://localhost:3000
 
 ### Start the backend
 
@@ -19,12 +19,19 @@ with more books in that catagory (e.g. same genre, same author).
 
 ### Hover
 
-Hover your mouse over a book and it should slide forwards out of the shelf.
+Hover your mouse over a book and it should slide forwards out of the shelf/stack.
 
 ### Preview
 
 Double left clicking on a book will bring up a larger preview of the front cover of the book. \
 Press escape or click off of the book to close the preview.
+
+Clicking the front cover in the preview will open the book to show a page with some details about the book. \
+Clicking the inside of the front cover will close the book again.
+
+There is also a button to the right of the book which flips the book over to reveal the other side. \
+This allows the user to read the blurb of the book. \
+If an image of the back cover has been provided this will be displayed, otherwise the description of the book is used.
 
 ### Drag and drop
 

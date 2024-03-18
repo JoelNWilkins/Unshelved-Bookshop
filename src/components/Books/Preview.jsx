@@ -95,7 +95,7 @@ function Preview() {
 
   return (
     <div id='preview' style={{ display: 'none' }}>
-      <button id='flip_book' onClick={flipBook}><PiArrowsClockwiseBold size="25px" /></button>
+      <button id='flip_book' onClick={flipBook}><PiArrowsClockwiseBold size='25px' /></button>
     </div>
   );
 }
