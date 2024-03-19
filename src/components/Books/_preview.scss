@@ -1,0 +1,194 @@
+#preview {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 101;
+  pointer-events: none;
+  background-color: rgba(0, 0, 0, 0.5);
+  
+  .book {
+    position: unset;
+    --preview-height: calc(1.5 * var(--height));
+    --preview-width: calc(1.5 * var(--width));
+    --preview-depth: calc(1.5 * var(--depth));
+    height: var(--preview-height);
+    width: var(--preview-width);
+    font-size: calc(1.5 * var(--font-size));
+    @include perspective(1000px);
+    @include perspective-origin(-600px -250px);
+    pointer-events: all;
+    cursor: default;
+
+    &.unavailable {
+      .spine, .front, .back, .top, .bottom {
+        opacity: unset;
+        filter: unset;
+      }
+    }
+
+    &.flipped {
+      .spine, .front {
+        display: none;
+      }
+
+      .edge {
+        display: block;
+      }
+    }
+    &:not(.flipped) {
+      .edge, .back {
+        display: none;
+      }
+    }
+  
+    .spine {
+      height: 100%;
+      width: var(--preview-depth);
+      right: 100%;
+      transform-origin: right;
+      @include transform(rotateY(-90deg));
+      writing-mode: vertical-rl;
+      text-orientation: sideways;
+      border-top: none;
+      border-bottom: none;
+    }
+  
+    .edge {
+      height: 100%;
+      width: var(--preview-depth);
+      right: 100%;
+      background-color: var(--paper-color);
+      border-top: 1px solid black;
+      transform-origin: right;
+      @include transform(rotateY(-90deg));
+      filter: grayscale(25%);
+    }
+  
+    .front {
+      height: 100%;
+      width: 100%;
+      left: 0;
+      @include transform(unset);
+      filter: unset;
+      cursor: pointer;
+      &.hidden { display: none; }
+    }
+  
+    .back {
+      height: 100%;
+      width: 100%;
+      left: 0;
+      font-size: small;
+      @include transform(unset);
+      filter: unset;
+      cursor: auto;
+      &.hidden { display: none; }
+      /* right: 0;
+      transform-origin: right;
+      @include transform(translateZ(calc(var(--preview-depth) * -1))); */
+    }
+  
+    .top {
+      height: var(--preview-depth);
+      width: 100%;
+      bottom: 100%;
+      outline: none;
+      transform-origin: bottom;
+      @include transform(rotateX(90deg));
+    }
+  
+    .bottom {
+      height: var(--preview-depth);
+      width: 100%;
+      top: 100%;
+      transform-origin: top;
+      @include transform(rotateX(-90deg));
+    }
+
+    #inside {
+      position: absolute;
+      height: 100%;
+      width: 100%;
+      top: 0;
+      right: 100%;
+      background-color: white; //var(--paper-color);
+      transform-origin: top right;
+      @include transform(rotateY(15deg));
+      cursor: pointer;
+    }
+    
+    .page {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      padding: 5%;
+      color: black;
+      background-color: var(--paper-color);
+      border-top: 1px solid black;
+      border-left: 1px solid black;
+      filter: grayscale(25%);
+      cursor: auto;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      text-transform: none;
+      font-weight: normal;
+
+      h1 {
+        font-size: 1em;
+      }
+
+      h2 {
+        font-size: 0.75em;
+        margin-bottom: 0.75em;
+      }
+
+      p {
+        margin-top: 0.75em;
+        font-size: small;
+      }
+    }
+  }
+
+  #flip_book {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+    margin-right: -60px;
+    padding: 5px;
+    outline: none;
+    border: 3px solid black;
+    border-radius: 100%;
+    pointer-events: all;
+    cursor: pointer;
+    background-color: var(--primary-red);
+    @include transition(all 0s);
+
+    &:hover {
+      background-color: lighten(#92140C, 10%);
+      @include transform(rotate(180deg));
+      @include transition(all 0.5s);
+    }
+  }
+}
+
+@media screen and (max-width: 600px) {
+  #preview {
+    .book {
+      --preview-height: var(--height);
+      --preview-width: var(--width);
+      --preview-depth: var(--depth);
+    }
+  }
+}

@@ -8,19 +8,15 @@ function Aside() {
   const [showAside, setShowAside] = useState(true);
 
   function toggleAside() {
-    let aside = document.getElementById('aside');
     let main = document.getElementsByTagName('main')[0];
     if (showAside) {
-      //aside.style.display = 'none';
-      //aside.style.width = '0';
       main.style.width = '100vw';
     } else {
-      //aside.style.display = 'flex';
-      //aside.style.width = '500px';
       main.style.width = 'calc(100vw - 500px)';
     }
+
+    // Toggle the value of showAside
     setShowAside(prev => !prev);
-    //aside.classList.toggle('show');
   
     // Fire a resize event to cause the books on the shelves to rerender
     fireEvent.resize(window);
