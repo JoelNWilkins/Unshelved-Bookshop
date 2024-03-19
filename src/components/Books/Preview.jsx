@@ -51,11 +51,11 @@ function Preview() {
 
   function handlePreviewEvent(event) {
     event.stopPropagation();
+    console.log(event);
     
     // Ignore when the user clicks the sign in/out button
-    if (event.target.id === 'sign_in_out') {
-      return;
-    } else if (event.target.id === 'flip_book') {
+    const ignore = ['sign_in_out', 'flip_book', 'toggle_aside'];
+    if (ignore.includes(event.target.id)) {
       return;
     }
 

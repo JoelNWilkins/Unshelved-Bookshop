@@ -1,4 +1,4 @@
-const url = "http://127.0.0.1:5000/api";
+const url = "http://127.0.0.1:5000";
 
 async function getData(endpoint, token) {
     return fetch((endpoint[0] === "/") ? url+endpoint : url+"/"+endpoint, {

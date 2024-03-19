@@ -20,7 +20,7 @@ function Register({ setName, setToken }) {
         return
     }
 
-    const response = await postData("/register", formData);
+    const response = await postData("/api/register", formData);
     if (response === undefined) {
         alert("Could not connect to the registration server. Please try again later.")
     } else if ("token" in response) {

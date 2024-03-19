@@ -1,6 +1,13 @@
 // Import the functions you need from the SDKs you need
 let { initializeApp } = require("firebase/app");
-let { getFirestore, collection, doc, addDoc, setDoc, getDoc, deleteDoc, updateDoc, query, where, getDocs } = require('firebase/firestore');
+let {
+  getFirestore, collection, doc, query, where,
+  addDoc, setDoc, deleteDoc, updateDoc,
+  getDoc, //getDocFromCache, getDocFromServer,
+  getDocs, //getDocsFromCache, getDocsFromServer,
+  // initializeFirestore, CACHE_SIZE_UNLIMITED,
+  // persistentLocalCache, persistentMultipleTabManager
+} = require('firebase/firestore');
 
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -16,7 +23,33 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-initializeApp(firebaseConfig);
+const app = initializeApp(firebaseConfig);
+
+// Use multi-tab IndexedDb persistence.
+// initializeFirestore(app, {
+//   localCache: persistentLocalCache(/*settings*/{
+//     tabManager: persistentMultipleTabManager(),
+//     cacheSizeBytes: CACHE_SIZE_UNLIMITED
+//   }),
+// });
+
+/*
+getDoc = async (docRef) => {
+  try {
+    return getDocFromCache(docRef);
+  } catch(err) {
+    return getDocFromServer(docRef);
+  }
+}
+
+getDocs = async (q) => {
+  try {
+    return getDocsFromCache(q);
+  } catch(err) {
+    return getDocsFromServer(q);
+  }
+}
+*/
 
 saveData = async (col, document, data) => {
   try {

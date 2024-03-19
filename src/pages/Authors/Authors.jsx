@@ -1,27 +1,26 @@
 import React, { useState, useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
 import { Bookcase } from '../../components';
 import { getData } from '../../utils';
 
 function Authors({ books }) {
-  const author = window.location.pathname.replace('/authors/', '');
   const [data, setData] = useState({});
+  const location = useLocation();
 
   useEffect(() => {
-    getData(`/data/authors/${author}`, null)
-      .then(data => { console.log(data); setData({data}); });
-  }, [author, setData]);
+    let author = location.pathname.replace('/authors/', '');
+    console.log(`Getting data for author with id ${author}...`)
+    getData(`/api/data/authors/${author}`, null)
+      .then(data => {
+        let shelves = {};
+        shelves[author] = data;
+        setData(shelves);
+      });
+  }, [location, setData]);
   
-  if (author) {
-    return (
-      <Bookcase books={books} shelves={data} grouping='authors' />
-    );
-  } else {
-    return (
-      <>
-        <h1>Author not found</h1>
-      </>
-    )
-  }
+  return (
+    <Bookcase books={books} shelves={data} grouping='authors' />
+  );
 }
 
 export default Authors;

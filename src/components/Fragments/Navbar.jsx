@@ -1,46 +1,37 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { fireEvent } from '@testing-library/react';
+import { GiHamburgerMenu } from "react-icons/gi";
 import { SignInOut } from '../';
 
 function Navbar({ name, setName, setToken }) {
-  function toggleAside() {
-    let aside = document.getElementById('aside');
-    let main = document.getElementsByTagName('main')[0];
-    if (aside.style.display !== 'none') {
-      aside.style.display = 'none';
-      main.style.width = '100vw';
-    } else {
-      aside.style.display = 'flex';
-      main.style.width = 'calc(100vw - 500px)';
-    }
-
-    // Fire a resize event to cause the books on the shelves to rerender
-    fireEvent.resize(window);
-  }
-
   return (
     <nav>
-      <Link to='/'>Home</Link>
-      <div className='dropdown'>
-        <Link to='/genres'>Genres</Link>
-        <div className='dropdown_content'>
-          <Link to='/genres/crime'>Crime</Link>
-          <Link to='/genres/scifi'>Science Fiction</Link>
-          <Link to='/genres/fantasy'>Fantasy</Link>
-          <Link to='/genres/romance'>Romance</Link>
-          <Link to='/genres/classic'>Classics</Link>
+      <div className='hamburger_menu'>
+        <div className='hamburger'>
+          <GiHamburgerMenu size='20px' />
+        </div>
+        <div className='hamburger_content'>
+          <Link to='/'>Home</Link>
+          <div className='dropdown'>
+            <Link to='/genres'>Genres</Link>
+            <div className='dropdown_content'>
+              <Link to='/genres/crime'>Crime</Link>
+              <Link to='/genres/scifi'>Science Fiction</Link>
+              <Link to='/genres/fantasy'>Fantasy</Link>
+              <Link to='/genres/romance'>Romance</Link>
+              <Link to='/genres/classic'>Classics</Link>
+            </div>
+          </div>
+          <div className='dropdown'>
+            <button id='authors'>Authors</button>
+            <div className='dropdown_content'>
+              <Link to='/authors/agatha-christie'>Agatha Christie</Link>
+              <Link to='/authors/isaac-asimov'>Isaac Asimov</Link>
+              <Link to='/authors/jane-austen'>Jane Austen</Link>
+            </div>
+          </div>
         </div>
       </div>
-      <div className='dropdown'>
-        <button id='authors'>Authors</button>
-        <div className='dropdown_content'>
-          <Link to='/authors/agatha-christie'>Agatha Christie</Link>
-          <Link to='/authors/isaac-asimov'>Isaac Asimov</Link>
-          <Link to='/authors/jane-austen'>Jane Austen</Link>
-        </div>
-      </div>
-      <button onClick={toggleAside}>My Stack</button>
       <SignInOut name={name} setName={setName} setToken={setToken} />
     </nav>
   );

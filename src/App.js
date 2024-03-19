@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Header, Navbar, Aside, Footer, Preview } from './components';
 import { Pages } from './pages';
 import { useName, useToken, getData, drag, allowDrop, removeFromStack, preview } from './utils';
@@ -8,7 +8,9 @@ function App() {
   const { token, setToken } = useToken();
   const [books, setBooks] = useState([]);
 
-  getData('books').then(books => { setBooks(books); });
+  useEffect(() => {
+    getData('books.json').then(books => { console.log("Number of books:", Object.keys(books).length); setBooks(books); });
+  }, []);
 
   document.addEventListener('dragstart', drag);
   document.addEventListener('dblclick', preview);

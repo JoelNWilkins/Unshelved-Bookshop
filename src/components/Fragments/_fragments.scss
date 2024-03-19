@@ -34,7 +34,28 @@ nav {
   color: var(--primary-yellow);
   background-color: var(--primary-red);
 
-  a, button {
+  // A hamburger menu to be used for mobile devices
+  .hamburger_menu {
+    display: inline-block;
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background-color: inherit;
+
+    .hamburger {
+      display: none;
+      max-height: 29.2px;
+    }
+
+    .hamburger_content {
+      font-size: inherit;
+      font-family: inherit;
+      color: inherit;
+      background-color: inherit;
+    }
+  }
+
+  a, button, .hamburger {
     display: inline-block;
     border: none;
     padding: 5px 10px;
@@ -50,12 +71,6 @@ nav {
     }
   }
   
-  span {
-    padding: 5px;
-    font-weight: bold;
-    cursor: default;
-  }
-
   /* The container <div> - needed to position the dropdown content */
   .dropdown {
     position: relative;
@@ -85,8 +100,14 @@ nav {
     &:hover .dropdown_content {
       display: table;
     }
-  }  
+  }
   
+  span {
+    padding: 5px;
+    font-weight: bold;
+    cursor: default;
+  }
+
   #sign_in_out {
     float: right;
     background-color: inherit;
@@ -131,22 +152,120 @@ aside {
   min-height: 100%;
   max-height: 100vh;
   padding-left: 15px;
-  overflow-x: hidden;
+  //overflow-x: hidden;
+  overflow-x: visible;
   overflow-y: auto;
   //background-color: var(--primary-brown);
-  @include transition(0.5s);
+  //@include transition(0.5s);
   @include perspective(2000px);
   @include perspective-origin(-100px -100px);
+
+  &.show {
+    width: 500px;
+    padding-left: 15px;
+  }
+
+  &:not(.show) {
+    width: 0;
+    padding-left: 0;
+  }
+
+  #spacer {
+    min-height: 50px;
+    @include transition(0.5s);
+  }
 }
 
-#spacer {
-  min-height: 50px;
-  @include transition(0.5s);
+.toggle_aside_wrapper {
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 50%;
+  right: 0;
+  height: 0;
+  width: 20px;
+}
+
+#toggle_aside {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 25px;
+  width: 100%;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  outline: none;
+  //color: var(--primary-yellow);
+  background-color: var(--primary-red);
+
+  &:hover {
+    background-color: lighten(#92140C, 10%);
+  }
+
+  * {
+    pointer-events: none;
+  }
 }
 
 @media screen and (max-width: 960px) {
+  nav {
+    .hamburger_menu {
+      .hamburger {
+        display: inline-block;
+      }
+
+      /* Links inside the dropdown */
+      a, button, .dropdown {
+        display: block;
+        text-align: left;
+      }
+  
+      /* Dropdown Content (Hidden by Default) */
+      .hamburger_content {
+        display: none;
+        position: absolute;
+        background-color: inherit;
+        height: 0;
+        min-width: max-content;
+        box-shadow: 4px 4px 4px rgba(0,0,0,0.2);
+        z-index: 1;
+
+        .dropdown {
+          /* Dropdown Content (Hidden by Default) */
+          .dropdown_content {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 100%;
+            background-color: inherit;
+            height: 0;
+            width: 100%;
+            min-width: max-content;
+            box-shadow: 4px 4px 4px rgba(0,0,0,0.2);
+            z-index: 1;
+          }
+          
+          /* Show the dropdown menu on hover */
+          &:hover .dropdown_content {
+            display: table;
+          }
+        }
+      }
+      
+      /* Show the dropdown menu on hover */
+      &:hover .hamburger_content {
+        display: table;
+      }
+    }
+  }
+
   aside {
-    display: none;
+    width: 0;
     padding-left: 0;
+  }
+
+  #toggle_aside {
+    display: none;
   }
 }

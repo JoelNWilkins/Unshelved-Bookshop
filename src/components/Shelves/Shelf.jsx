@@ -44,7 +44,7 @@ const Shelf = ({ children, id, name, grouping, dimensions }) => {
         }
       }
     });
-  }, [id, children]);
+  }, [id]);
 
   const handleWidthChange = ({ newWidth }) => {
     const shelf = document.getElementById(id);

@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const bcrypt = require('bcrypt');
@@ -12,26 +13,30 @@ const SECRET_KEY = 'your_secret_key';
 // Allow cross-origin requests
 app.use(cors());
 
+// Serve static files from the 'public' directory
+app.use(express.static(path.join(__dirname, 'public')));
+
 // Parse JSON requests
 app.use(bodyParser.json());
 
 app.get('/api/books', async (req, res) => {
+    console.log(`GET ${req.url}`);
     const books = await getDataBatch('books');
     res.json(books);
 });
 
 app.get('/api/data/:col/:document', async (req, res) => {
+    console.log(`GET ${req.url}`);
     const { col, document } = req.params;
-    console.log(col, document);
-    if (['authors'].includes(col)) {
-        data = await getData(col, document);
-        res.json(data);
-    } else if (col === 'genres') {
-        data = {}
-        data['agatha-christie'] = await getDataInSubcollection('authors', 'agatha-christie', 'books');
-        data['isaac-asimov'] = await getDataInSubcollection('authors', 'isaac-asimov', 'books');
-        data['jane-austen'] = await getDataInSubcollection('authors', 'jane-austen', 'books');
-        res.json(data);
+    if (['authors', 'genres'].includes(col)) {
+        if (document === 'all') {
+            data = await getDataBatch(col);
+            console.log(data);
+            res.json(data);
+        } else {
+            data = await getData(col, document);
+            res.json(data);
+        }
     } else {
         res.status(401).json({ error: 'Unauthorized' });
     }
@@ -39,6 +44,7 @@ app.get('/api/data/:col/:document', async (req, res) => {
 
 // API endpoints for user CRUD operations
 app.post('/api/register', async (req, res) => {
+    console.log(`POST ${req.url}`);
     try {
         const { username, password } = req.body;
         
@@ -61,6 +67,7 @@ app.post('/api/register', async (req, res) => {
 });
 
 app.post('/api/login', async (req, res) => {
+    console.log(`POST ${req.url}`);
     try {
         const { username, password } = req.body;
         const details = await getData('users', username);
