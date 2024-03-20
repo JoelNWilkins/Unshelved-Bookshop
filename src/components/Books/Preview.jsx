@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import { PiArrowsClockwiseBold } from 'react-icons/pi';
 
 function Preview() {
@@ -56,7 +56,7 @@ function Preview() {
     }
   }
 
-  function flipBook() {
+  const flipBook = useCallback(() => {
     let preview = document.getElementById('preview');
     let book = preview.firstChild;
     book.classList.toggle('flipped');
@@ -65,7 +65,7 @@ function Preview() {
     if (book.classList.contains('open')) {
       closeBook();
     }
-  }
+  }, []);
 
   useEffect(() => {
     function handlePreviewEvent(event) {
@@ -117,7 +117,7 @@ function Preview() {
       window.removeEventListener('keydown', handlePreviewEvent);
       window.removeEventListener('click', handlePreviewEvent);
     };
-  }, []);
+  }, [flipBook]);
 
   return (
     <div id='preview' style={{ display: 'none' }}>

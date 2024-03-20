@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useComponentWidth, Plaque } from '..';
-import { addToShelf } from '../../utils';
 
 const Shelf = ({ children, id, name, grouping, dimensions, droppable }) => {
   // A function to position the books when the shelf is first created
