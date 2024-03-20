@@ -1,3 +1,5 @@
+import { fireEvent } from '@testing-library/react';
+
 function drag(event) {
   if (event.target.nodeName !== '#text') {
     let element = event.target;
@@ -23,8 +25,15 @@ function addToStack(event) {
   let id = event.dataTransfer.getData('id');
   let original = document.getElementById(id);
 
-  // Create a copy of the book to add to the stack instead of the book itself
-  let element = original.cloneNode(true);
+  let element = original;
+  let custom = original.parentNode.classList.contains('custom');
+  if (!custom) {
+    // Create a copy of the book to add to the stack instead of the book itself
+    element = original.cloneNode(true);
+  }
+
+  // Update the text displayed when hovering over the book
+  element.setAttribute('title', 'Double click to preview the book or drag and drop the book back onto the shelves on the left');
 
   if (element !== null && original.parentNode.id !== 'preview') {
     if (element.id.includes(':')) {
@@ -71,6 +80,12 @@ function addToStack(event) {
       }
     }
   }
+
+  if (custom) {
+    // Move books up when a book is removed
+    // Fire a resize event to cause the books on the shelves to rerender
+    fireEvent.resize(window);
+  }
 }
 
 function removeFromStack(event) {
@@ -79,7 +94,47 @@ function removeFromStack(event) {
   let id = event.dataTransfer.getData('id');
   let element = document.getElementById(id);
 
-  if (element !== null) {
+  let custom = (event.target.classList.contains('custom')
+    || event.target.parentNode.classList.contains('custom')
+    || event.target.parentNode.parentNode.classList.contains('custom'));
+
+  if (element !== null && custom) {
+    if (element.id.includes(':')) {
+      // Update the id with the current time
+      element.id = element.id.split(':')[0] + ':' + Date.now();
+    }
+
+    // Unset the position
+    element.style.left = null;
+
+    // Update the text displayed when hovering over the book
+    element.setAttribute('title', 'Double click to preview the book or drag and drop to rearrange books');
+
+    // Unhide the copy incase the book was dragged from the preview
+    // in which case the original book on the shelf was already hidden
+    element.classList.remove('hide');
+    element.classList.remove('leaning');
+
+    // The target is the element on which the book is being dropped
+    let target = event.target;
+    if (target.nodeName === 'SECTION') {
+      // If the target is the aside, add the book to the top of the stack
+      target.appendChild(element);
+    } else {
+      if (!target.classList.contains('book')) {
+        // The target may be one of the children of the book div
+        // so we want to update the target to be the parent
+        target = target.parentNode;
+      }
+      if (target.classList.contains('book')) {
+        // Insert the book in the stack above the target
+        target.parentNode.insertBefore(element, target);
+      }
+    }
+    
+    // Fire a resize event to cause the books on the shelves to rerender
+    fireEvent.resize(window);
+  } else if (element !== null) {
     if (element.id.includes(':')) {
       // Retrieve the id of the original book on the shelf
       // by removing the timestamp we added for uniqueness

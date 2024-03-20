@@ -40,7 +40,7 @@ function Aside() {
         <div id='spacer' />
       </aside>
       <div className='toggle_aside_wrapper'>
-        <button id='toggle_aside' onClick={toggleAside}>
+        <button id='toggle_aside' onClick={toggleAside} title="Show/hide stack of books">
           <IconContext.Provider value={{}}>
             { showAside ? <FaChevronRight /> : <FaChevronLeft /> }
           </IconContext.Provider>

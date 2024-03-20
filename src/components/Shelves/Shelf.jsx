@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { useComponentWidth } from '..';
-import { Plaque } from '..';
+import { useComponentWidth, Plaque } from '..';
+import { addToShelf } from '../../utils';
 
-const Shelf = ({ children, id, name, grouping, dimensions }) => {
+const Shelf = ({ children, id, name, grouping, dimensions, droppable }) => {
   // A function to position the books when the shelf is first created
   useEffect(() => {
     const shelf = document.getElementById(id);
@@ -42,12 +42,15 @@ const Shelf = ({ children, id, name, grouping, dimensions }) => {
         if (position + 0.26 * book.offsetHeight + 0.966 * book.offsetWidth < width) {
           book.classList.add('leaning');
         }
+      } else {
+        book.classList.remove('leaning');
       }
     });
   }, [id]);
 
   const handleWidthChange = ({ newWidth }) => {
     const shelf = document.getElementById(id);
+    let custom = shelf.classList.contains('custom');
     // Start from index 2 to skip the Plaque and shelf div
     const books = Array.from(shelf.children).slice(2);
     const n = books.length;
@@ -63,8 +66,10 @@ const Shelf = ({ children, id, name, grouping, dimensions }) => {
     // Loop through the books from left to right
     books.forEach((book, i) => {
       position = parseInt(book.style.left.replace('px', ''));
-      if (position <= prev) {
+      if (custom || isNaN(position) || position <= prev) {
+        // Update the position
         position = Math.trunc(prev + bookWidth);
+        // Set the position from the left wall of the shelf
         book.style.left = position+'px';
       }
       book.classList.remove('hide');
@@ -86,13 +91,15 @@ const Shelf = ({ children, id, name, grouping, dimensions }) => {
         book.style.zIndex = null;
       }
 
-      if (i === n - 1) {
+      if (!custom && i === n - 1) {
         // Check if there is space for the last book on the right to be leaning
         if (position + 0.26 * book.offsetHeight + 0.966 * book.offsetWidth < width) {
           book.classList.add('leaning');
         } else {
           book.classList.remove('leaning');
         }
+      } else {
+        book.classList.remove('leaning');
       }
 
       // Update the previous position
@@ -108,8 +115,10 @@ const Shelf = ({ children, id, name, grouping, dimensions }) => {
   };
 
   return (
-    <section id={id} ref={ref} style={style}>
-      <Plaque id={id} name={name} to={`/${grouping}/${id}`} />
+    <section id={id} ref={ref} style={style}
+      className={ droppable ? 'custom' : '' }
+    >
+      { name && <Plaque id={id} name={name} to={`/${grouping}/${id}`} /> }
       <div className='shelf'>
         <div className='top' />
         <div className='bottom' />
@@ -123,7 +132,8 @@ const Shelf = ({ children, id, name, grouping, dimensions }) => {
 
 Shelf.defaultProps = {
   grouping: 'genres',
-  dimensions: {height: 225, depth: 150}
+  dimensions: {height: 225, depth: 150},
+  droppable: false
 }
 
 export default Shelf;

@@ -14,7 +14,14 @@ function preview(event) {
     element = element.parentNode.parentNode;
   }
   if (element.classList.contains('book')) {
-    preview.insertBefore(element.cloneNode(true), flip_book);
+    let book = element.cloneNode(true);
+    book.removeAttribute('title');
+    for (let child of book.children) {
+      if (child.classList.contains('front')) {
+        child.setAttribute('title', 'Left click to open the book');
+      }
+    }
+    preview.insertBefore(book, flip_book);
     //preview.innerHTML = element.outerHTML;
     preview.style.display = 'flex';
     element.classList.add('hide');

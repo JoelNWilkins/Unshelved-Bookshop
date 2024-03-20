@@ -14,6 +14,7 @@ function Book({ details }) {
       className={`book${ details?.stock <= 0 ? ' unavailable' : '' }`}
       style={style}
       draggable='true'
+      title='Double click to preview the book or drag and drop the book onto the stack on the right'
     >
       <div className='top' />
       <div className='page'>

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Book, Shelf } from '../';
 
-function Bookcase({ books, shelves, grouping }) {
+function Bookcase({ books, shelves, grouping, droppable }) {
   if (shelves) {
     return (
       <>
         { Object.entries(shelves).reverse().map(([genre, shelf]) => (
-          <Shelf key={genre} id={genre} name={shelf?.name} grouping={grouping}>
+          <Shelf key={genre} id={genre} name={shelf?.name} grouping={grouping} dropabble={droppable}>
             { shelf?.books && shelf?.books.map((isbn) => (
               <Book key={isbn} details={books[isbn]} />
             ))}
@@ -18,7 +18,8 @@ function Bookcase({ books, shelves, grouping }) {
 }
 
 Bookcase.defaultProps = {
-  grouping: 'genres'
+  grouping: 'genres',
+  droppable: false
 }
 
 export default Bookcase;

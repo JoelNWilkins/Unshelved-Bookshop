@@ -30,6 +30,7 @@ function Navbar({ name, setName, setToken }) {
               <Link to='/authors/jane-austen'>Jane Austen</Link>
             </div>
           </div>
+          <Link to='/custom'>My Shelves</Link>
         </div>
       </div>
       <SignInOut name={name} setName={setName} setToken={setToken} />
