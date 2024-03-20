@@ -1,29 +1,50 @@
 #preview {
+  // Cover the whole screen
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
+  // Disable click events since the preview is covering the whole screen
+  pointer-events: none;
+
+  // Make sure the preview is positioned above everything else
+  // (including the navbar with z-index: 100)
+  z-index: 101;
+
+  // Center children both horizontally and vertically
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 101;
-  pointer-events: none;
-  background-color: rgba(0, 0, 0, 0.5);
+  
+  // Dim the background when the preview is visible
+  background-color: black;
+  filter: opacity(0.5);
   
   .book {
+    // Unsetting the position will allow the book to be centered by flex
     position: unset;
+
+    // Increase the size of the book for the preview
+    // Store the dimensions as variables for use by the child elements
     --preview-height: calc(1.5 * var(--height));
     --preview-width: calc(1.5 * var(--width));
     --preview-depth: calc(1.5 * var(--depth));
     height: var(--preview-height);
     width: var(--preview-width);
     font-size: calc(1.5 * var(--font-size));
+
+    // Set the perspective for the 3D effect
     @include perspective(1000px);
     @include perspective-origin(-600px -250px);
+
+    // Enable click events for the book and its child elements
     pointer-events: all;
+    // Change the cursor back from grab for drag and drop
+    // (although the book can still be dragged and dropped)
     cursor: default;
 
+    // Remove the ghost effect when previewing unavailable books
     &.unavailable {
       .spine, .front, .back, .top, .bottom {
         opacity: unset;
@@ -31,19 +52,15 @@
       }
     }
 
+    // Show/hide different faces based on which way the book is facing
     &.flipped {
-      .spine, .front {
-        display: none;
-      }
-
-      .edge {
-        display: block;
-      }
+      // Back cover facing the user
+      .spine, .front { display: none; }
+      .edge { display: block; }
     }
     &:not(.flipped) {
-      .edge, .back {
-        display: none;
-      }
+      // Front cover facing the user
+      .edge, .back { display: none; }
     }
   
     .spine {
@@ -73,10 +90,20 @@
       height: 100%;
       width: 100%;
       left: 0;
-      @include transform(unset);
       filter: unset;
+      // Change the cursor to indicate that there is an action
       cursor: pointer;
       &.hidden { display: none; }
+
+      @include transform-origin(left);
+      @include transform(unset);
+      @include transition(0.5s);
+
+      // Start to open the front cover when hovering over to indicate
+      // that clicking on the front cover will open the book
+      &:hover {
+        @include transform(scaleX(0.9) rotateY(-5deg));
+      }
     }
   
     .back {
@@ -88,9 +115,6 @@
       filter: unset;
       cursor: auto;
       &.hidden { display: none; }
-      /* right: 0;
-      transform-origin: right;
-      @include transform(translateZ(calc(var(--preview-depth) * -1))); */
     }
   
     .top {
@@ -116,10 +140,20 @@
       width: 100%;
       top: 0;
       right: 100%;
-      background-color: white; //var(--paper-color);
-      transform-origin: top right;
-      @include transform(rotateY(15deg));
+      background-color: white;
+      // Change the cursor to indicate that there is an action
       cursor: pointer;
+
+      // Angle the inside of the front cover slightly for visual effect
+      @include transform-origin(right);
+      @include transform(rotateY(15deg));
+      @include transition(0.5s);
+
+      // Start to close the front cover when hovering over to indicate
+      // that clicking on the inside of the front cover will close the book
+      &:hover {
+        @include transform(rotateY(20deg));
+      }
     }
     
     .page {
@@ -134,6 +168,8 @@
       border-top: 1px solid black;
       border-left: 1px solid black;
       filter: grayscale(25%);
+
+      // Change the cursor to auto to switch between the default cursor and the text cursor
       cursor: auto;
 
       display: flex;
@@ -170,14 +206,22 @@
     outline: none;
     border: 3px solid black;
     border-radius: 100%;
-    pointer-events: all;
-    cursor: pointer;
     background-color: var(--primary-red);
+
+    // Enable click events
+    pointer-events: all;
+    // Change the cursor to indicate that there is an action
+    cursor: pointer;
+
+    // Required to prevent the arrows from rotating back when the mouseover stops
     @include transition(all 0s);
 
+    // Rotate the arrows by 180 degrees when hovering over the button
     &:hover {
       background-color: lighten(#92140C, 10%);
       @include transform(rotate(180deg));
+
+      // Required to prevent the arrows from rotating back when the mouseover stops
       @include transition(all 0.5s);
     }
   }
@@ -186,6 +230,7 @@
 @media screen and (max-width: 600px) {
   #preview {
     .book {
+      // Reduce the size of the books being previewed to fit on the screen
       --preview-height: var(--height);
       --preview-width: var(--width);
       --preview-depth: var(--depth);

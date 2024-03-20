@@ -4,10 +4,15 @@
   --paper-color: #EDE79F;
   --border-color: var(--background-color);
   transform-style: preserve-3d;
-  @include transform(translateZ(calc(var(--width) - 300px)));
-  @include transition(transform 0.5s 0.1s);
+
+  // Change the cursor to indicate the books can be dragged and dropped
   cursor: grab;
 
+  // Slide the books to the back of the shelves to start
+  @include transform(translateZ(calc(var(--width) - 300px)));
+  // Wait for a little bit before sliding the books out over half a second
+  @include transition(transform 0.5s 0.1s);
+  // Slide the books out from the shelves when hovering over them
   &:hover {
     @include transform(translateZ(150px));
   }
@@ -15,6 +20,7 @@
   &.hide { display: none; }
   &:not(.hide) { display: block; }
 
+  // Make unavailable books look ghostly (greyscale and translucent)
   &.unavailable {
     .spine, .front, .back, .top, .bottom {
       opacity: 0.5;
@@ -126,11 +132,13 @@ section .book {
 }
 
 section .book:not(.hide) + .book.leaning {
+  // Rotate around the bottom left corner to make the calculations neater
   @include transform-origin(bottom left);
+  // Lean the book at a 15 degree angle with the top left corner just touching the book to the left
   @include transform(translateZ(calc(var(--width) - 300px)) translateX(calc(0.26 * var(--height))) rotateZ(-15deg));
 
+  // Rotate leaning books upright when sliding them out from the shelves
   &:hover {
-    //@include transform(translateX(95px) rotateZ(-30deg) translateZ(150px));
     @include transform(translateX(calc(0.1 * var(--height))) translateZ(150px));
   }
 }

@@ -25,14 +25,14 @@ function Aside() {
   function scrollResize() {
     let scrollY = window.scrollY;
     let spacer = document.getElementById("spacer");
-    if (scrollY < 120) {
+    if (scrollY < 120 && window.innerHeight > 800) {
       spacer.style.height = (160-scrollY)+"px";
     } else {
       spacer.style.height = "50px";
     }
   }
 
-  document.addEventListener("scroll", scrollResize);
+  window.addEventListener("scroll", scrollResize);
 
   return (
     <>
