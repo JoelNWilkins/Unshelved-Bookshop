@@ -18,42 +18,12 @@ function Preview() {
     let preview = document.getElementById('preview');
     let book = preview.firstChild;
     book.classList.add('open');
-
-    let containsInside = false;
-    for (let child of book.children) {
-      if (child.classList.contains('front')) {
-        // Hide the front cover
-        child.classList.add('hidden');
-      } else if (child.id === 'inside') {
-        containsInside = true;
-      }
-    }
-
-    // Check if the book already contains the inside to avoid double adding
-    if (!containsInside) {
-      let inside = document.createElement('div');
-
-      // Set the id for use later
-      inside.setAttribute('id', 'inside');
-      // Set the text to display when hovering over the inside of the front cover
-      inside.setAttribute('title', 'Left click or press the escape key to close the book');
-
-      book.appendChild(inside);
-    }
   }
 
   function closeBook() {
     let preview = document.getElementById('preview');
     let book = preview.firstChild;
     book.classList.remove('open');
-
-    for (let child of book.children) {
-      if (child.classList.contains('front')) {
-        child.classList.remove('hidden');
-      } else if (child.id === 'inside') {
-        book.removeChild(child);
-      }
-    }
   }
 
   const flipBook = useCallback(() => {
@@ -83,6 +53,7 @@ function Preview() {
             closePreview();
           }
         } else if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
+          // Pressing the left/right arrow key should flip the book over
           flipBook();
         }
       } else if (event.type === 'click') {

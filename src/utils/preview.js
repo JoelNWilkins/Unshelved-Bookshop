@@ -21,6 +21,16 @@ function preview(event) {
         child.setAttribute('title', 'Left click to open the book');
       }
     }
+    
+    let inside = document.createElement('div');
+
+    // Set the id for use later
+    inside.setAttribute('id', 'inside');
+    // Set the text to display when hovering over the inside of the front cover
+    inside.setAttribute('title', 'Left click or press the escape key to close the book');
+
+    book.appendChild(inside);
+    
     preview.insertBefore(book, flip_book);
     //preview.innerHTML = element.outerHTML;
     preview.style.display = 'flex';
