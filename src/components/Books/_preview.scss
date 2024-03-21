@@ -54,7 +54,7 @@
     // Show/hide different faces based on which way the book is facing
     &.flipped {
       // Back cover facing the user
-      .spine, .front { display: none; }
+      .spine, .front, #inside { display: none; }
       .edge { display: block; }
     }
     &:not(.flipped) {
@@ -85,7 +85,7 @@
         // Start to open the front cover when hovering over to indicate
         // that clicking on the front cover will open the book
         &:hover {
-          @include transform(scaleX(0.95) rotateY(-5deg));
+          @include transform(scaleX(0.9) rotateY(-10deg));
         }
       }
 
@@ -96,9 +96,10 @@
     }
   
     .front {
-      height: 100%;
-      width: 100%;
+      height: var(--preview-height);
+      width: var(--preview-width);
       left: 0;
+      // Required for the front cover opening/closing effect
       backface-visibility: hidden;
       filter: unset;
       // Change the cursor to indicate that there is an action
@@ -112,11 +113,12 @@
   
     #inside {
       position: absolute;
-      height: 100%;
-      width: 100%;
+      height: var(--preview-height);
+      width: var(--preview-width);
       top: 0;
       right: 100%;
       background-color: white;
+      // Required for the front cover opening/closing effect
       backface-visibility: hidden;
       // Change the cursor to indicate that there is an action
       cursor: pointer;
@@ -128,10 +130,10 @@
     }
     
     .spine {
-      height: 100%;
+      height: var(--preview-height);
       width: var(--preview-depth);
       right: 100%;
-      transform-origin: right;
+      @include transform-origin(right);
       @include transform(rotateY(-90deg));
       writing-mode: vertical-rl;
       text-orientation: sideways;
@@ -140,19 +142,19 @@
     }
   
     .edge {
-      height: 100%;
+      height: var(--preview-height);
       width: var(--preview-depth);
       right: 100%;
       background-color: var(--paper-color);
       border-top: 1px solid black;
-      transform-origin: right;
+      @include transform-origin(right);
       @include transform(rotateY(-90deg));
       filter: grayscale(25%);
     }
   
     .back {
-      height: 100%;
-      width: 100%;
+      height: var(--preview-height);
+      width: var(--preview-width);
       left: 0;
       font-size: small;
       @include transform(unset);
@@ -163,19 +165,19 @@
   
     .top {
       height: var(--preview-depth);
-      width: 100%;
+      width: var(--preview-width);
       bottom: 100%;
       outline: none;
-      transform-origin: bottom;
+      @include transform-origin(bottom);
       @include transform(rotateX(90deg));
       @include transition(1s);
     }
   
     .bottom {
       height: var(--preview-depth);
-      width: 100%;
+      width: var(--preview-width);
       top: 100%;
-      transform-origin: top;
+      @include transform-origin(top);
       @include transform(rotateX(-90deg));
     }
 
@@ -183,8 +185,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      height: 100%;
-      width: 100%;
+      height: var(--preview-height);
+      width: var(--preview-depth);
       padding: 5%;
       color: black;
       background-color: var(--paper-color);
@@ -221,8 +223,8 @@
 
   #flip_book {
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     margin: 20px;
     margin-right: -60px;
     padding: 5px;

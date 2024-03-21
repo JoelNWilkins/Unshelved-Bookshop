@@ -1,3 +1,4 @@
+// Generic book styling
 .book {
   bottom: 0;
   font-size: var(--font-size);
@@ -28,7 +29,7 @@
     }
   }
 
-  .spine, .front, .back, .top, .bottom, .edge {
+  .spine, .front, .back, .top, .bottom, .edge, .page {
     position: absolute;
     transform-style: preserve-3d;
     font-family: inherit;
@@ -38,24 +39,25 @@
   .spine {
     height: 100%;
     width: 100%;
-    text-align: center;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     border: 1px solid var(--border-color);
     background-color: var(--background-color);
     z-index: 1;
   }
 
   .front, .back {
-    text-align: center;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
+    text-align: center;
     background-color: var(--background-color);
   }
 
+  // Styling for the blurb on the back of the book
   .back {
     padding: 5%;
     font-size: xx-small;
@@ -65,26 +67,19 @@
     }
   }
 
-  div:where(.front, .back) {
-    filter: brightness(80%);
-  }
-
   .top, .bottom {
     outline: 2px solid var(--background-color);
     outline-offset: -2px;
     background-color: var(--paper-color);
   }
 
-  .edge {
+  .edge, .page {
     display: none;
     background-color: var(--paper-color);
   }
-
-  .page {
-    display: none;
-  }
 }
 
+// Books standing upright on the shelf
 section .book {
   position: absolute;
   height: var(--height);
@@ -92,45 +87,51 @@ section .book {
 
   .spine {
     padding-right: 1px;
-    writing-mode: vertical-rl;
-    text-orientation: sideways;
     border-top: none;
     border-bottom: none;
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+  }
+
+  div:where(.front, .back) {
+    filter: brightness(80%);
   }
 
   .front {
+    height: var(--height);
     width: var(--width);
-    height: 100%;
     left: 100%;
-    transform-origin: left;
+    @include transform-origin(left);
     @include transform(rotateY(90deg));
   }
 
   .back {
+    height: var(--height);
     width: var(--width);
-    height: 100%;
     right: 100%;
-    transform-origin: right;
+    @include transform-origin(right);
     @include transform(rotateY(-90deg));
   }
 
   .top {
-    width: 100%;
     height: var(--width);
+    width: var(--depth);
     bottom: 100%;
-    transform-origin: bottom;
+    @include transform-origin(bottom);
     @include transform(rotateX(90deg));
   }
 
   .bottom {
-    width: 100%;
     height: var(--width);
+    width: var(--depth);
     top: 100%;
-    transform-origin: top;
+    @include transform-origin(top);
     @include transform(rotateX(-90deg));
   }
 }
 
+// CSS selector to only apply the leaning effect to a book on the shelf
+// after an unhidden book, to prevent the book from leaning on thin air
 section .book:not(.hide) + .book.leaning {
   // Rotate around the bottom left corner to make the calculations neater
   @include transform-origin(bottom left);
@@ -143,6 +144,7 @@ section .book:not(.hide) + .book.leaning {
   }
 }
 
+// Books stacked one on top of each other
 aside .book {
   position: relative;
   height: var(--depth);
@@ -156,14 +158,14 @@ aside .book {
     border-bottom: none;
     writing-mode: vertical-rl;
     text-orientation: sideways;
-    transform-origin: top left;
+    @include transform-origin(top left);
     @include transform(rotateZ(-90deg) translateX(calc(var(--depth) * -1)));
   }
 
   .front {
     height: var(--height);
     width: var(--width);
-    transform-origin: top left;
+    @include transform-origin(top left);
     @include transform(rotateX(90deg) rotateZ(-90deg));
   }
   
@@ -171,23 +173,23 @@ aside .book {
     height: var(--height);
     width: var(--width);
     top: 100%;
-    transform-origin: top left;
+    @include transform-origin(top left);
     @include transform(scale(-1) rotateX(90deg) rotateZ(90deg) translateX(calc(var(--width) * -1)));
   }
 
   .top {
+    height: var(--depth);
     width: var(--width);
-    height: 100%;
     right: 100%;
-    transform-origin: right;
+    @include transform-origin(right);
     @include transform(rotateY(-90deg));
   }
 
   .bottom {
+    height: var(--depth);
     width: var(--width);
-    height: 100%;
     left: 100%;
-    transform-origin: left;
+    @include transform-origin(left);
     @include transform(rotateY(90deg));
   }
 }

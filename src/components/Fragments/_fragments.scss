@@ -90,6 +90,7 @@ aside {
 }
 
 @media screen and (max-width: 960px) {
+  // Disable the aside for smaller devices
   aside {
     width: 0;
     padding-left: 0;
