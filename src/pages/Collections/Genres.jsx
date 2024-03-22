@@ -10,23 +10,24 @@ function Genre({ books }) {
   useEffect(() => {
     let genre = location.pathname.replace('/genres/', '');
     if (genre[0] === '/') {
-      genre = 'all';
+      genre = 'default';
     }
     console.log(`Getting data for genre with id ${genre}`);
     getData(`/api/data/genres/${genre}`, null)
       .then(data => {
-        let shelves = {};
-        if (genre === 'all') {
-          shelves = data;
+        console.log(data);
+        if (data?.shelves) {
+          setData(data?.shelves);
         } else {
-          shelves[genre] = data;
+          let shelves = {};
+          shelves['genres/'+genre] = data;
+          setData(shelves);
         }
-        setData(shelves);
       });
   }, [location, setData]);
   
   return (
-    <Bookcase books={books} shelves={data} grouping='genres' />
+    <Bookcase books={books} shelves={data} />
   );
 }
 

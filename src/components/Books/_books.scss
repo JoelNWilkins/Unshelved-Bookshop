@@ -2,8 +2,10 @@
 .book {
   bottom: 0;
   font-size: var(--font-size);
+  --blurb-size: 8px;
   --paper-color: #EDE79F;
   --border-color: var(--background-color);
+  --blurb-text-transform: none;
   transform-style: preserve-3d;
 
   // Change the cursor to indicate the books can be dragged and dropped
@@ -43,6 +45,7 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    font-size: inherit;
     border: 1px solid var(--border-color);
     background-color: var(--background-color);
     z-index: 1;
@@ -60,7 +63,8 @@
   // Styling for the blurb on the back of the book
   .back {
     padding: 5%;
-    font-size: xx-small;
+    font-size: var(--blurb-size);
+    text-transform: var(--blurb-text-transform);
 
     p {
       margin-bottom: 10px;

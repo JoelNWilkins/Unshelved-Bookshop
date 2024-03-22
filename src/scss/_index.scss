@@ -25,8 +25,8 @@
 }
 
 body {
-  font-family: 'Libre Baskerville', Georgia, 'Times New Roman', Times, serif;
   background-color: var(--primary-green);
+  font-family: 'Libre Baskerville', Georgia, 'Times New Roman', Times, serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -37,6 +37,7 @@ body {
   height: max-content;
   width: 100%;
   background-color: var(--primary-brown);
+  overflow-x: clip;
 }
 
 main {

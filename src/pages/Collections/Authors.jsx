@@ -9,17 +9,21 @@ function Authors({ books }) {
 
   useEffect(() => {
     let author = location.pathname.replace('/authors/', '');
-    console.log(`Getting data for author with id ${author}...`)
+    console.log(`Getting data for author with id ${author}`);
     getData(`/api/data/authors/${author}`, null)
       .then(data => {
-        let shelves = {};
-        shelves[author] = data;
-        setData(shelves);
+        if (data?.shelves) {
+          setData(data?.shelves);
+        } else {
+          let shelves = {};
+          shelves['authors/'+author] = data;
+          setData(shelves);
+        }
       });
   }, [location, setData]);
   
   return (
-    <Bookcase books={books} shelves={data} grouping='authors' />
+    <Bookcase books={books} shelves={data} />
   );
 }
 

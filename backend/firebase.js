@@ -101,12 +101,28 @@ saveDataInSubcollection = async (col, document, subcol, details, data) => {
   }
 }
 
-getData = async (col, document) => {
+getData = async (col, document, subcol, subdocument) => {
   try {
     const db = getFirestore();
     const docRef = doc(db, col, document);
-    const docSnap = await getDoc(docRef);
-    return docSnap.data();
+    if (subcol) {
+      const subColRef = collection(docRef, subcol);
+      if (subdocument) {
+        const subDocRef = doc(subColRef, subdocument);
+        const subDocSnap = await getDoc(subDocRef);
+        return subDocSnap.data();
+      } else {
+        const subColSnap = await getDocs(subColRef);
+        data = {};
+        for (let subDoc of subColSnap.docs) {
+          data[`${col}/${document}/${subDoc.id}`] = subDoc.data();
+        }
+        return data;
+      }
+    } else {
+      const docSnap = await getDoc(docRef);
+      return docSnap.data();
+    }
   } catch(err) {
     console.log(err);
   }
@@ -133,7 +149,7 @@ getDataInSubcollection = async (col, document, subcol) => {
     const docRef = doc(db, col, document);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
-    const subColRef = collection(docRef, subcol)
+    const subColRef = collection(docRef, subcol);
     const subColSnap = await getDocs(subColRef);
     data.books = [];
     for (let subDoc of subColSnap.docs) {

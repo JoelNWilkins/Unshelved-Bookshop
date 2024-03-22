@@ -1,5 +1,10 @@
 {
   "agatha-christie": {
+    "id": "agatha-christie",
+    "shelves": [
+      "poirot"
+    ],
+    "name": "Agatha Christie",
     "books": [
       "9780007527496",
       "9780008129460",
@@ -38,12 +43,25 @@
       "9780008129613",
       "9780008164973",
       "9780007527601"
+    ]
+  },
+  "frank-herbert": {
+    "id": "frank-herbert",
+    "books": [
+      "9780340960196",
+      "9781473655324",
+      "9781473233782",
+      "9781473233805",
+      "9781473233799",
+      "9781473233812"
     ],
-    "name": "Agatha Christie",
-    "id": "agatha-christie"
+    "name": "Frank Herbert"
   },
   "isaac-asimov": {
     "id": "isaac-asimov",
+    "shelves": [
+      "greater-foundation"
+    ],
     "books": [
       "9780008279554",
       "9780008277802",
@@ -66,11 +84,21 @@
     "name": "Isaac Asimov"
   },
   "jane-austen": {
-    "name": "Jane Austen",
-    "id": "jane-austen",
     "books": [
       "9780141040349",
       "9780141040370"
-    ]
+    ],
+    "name": "Jane Austen",
+    "id": "jane-austen"
+  },
+  "tolkien": {
+    "name": "J. R. R. Tolkien",
+    "books": [
+      "9780261103344",
+      "9780261103573",
+      "9780261103580",
+      "9780261103597"
+    ],
+    "id": "tolkien"
   }
 }

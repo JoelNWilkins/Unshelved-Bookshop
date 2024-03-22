@@ -18,7 +18,7 @@ function preview(event) {
     book.removeAttribute('title');
     for (let child of book.children) {
       if (child.classList.contains('front')) {
-        child.setAttribute('title', 'Left click to open the book');
+        child.setAttribute('title', 'Left click or press enter to open the book');
       }
     }
     
@@ -33,7 +33,8 @@ function preview(event) {
     
     preview.insertBefore(book, flip_book);
     //preview.innerHTML = element.outerHTML;
-    preview.style.display = 'flex';
+    //preview.style.display = 'flex';
+    preview.classList.add('show');
     element.classList.add('hide');
   }
 }

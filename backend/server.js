@@ -31,12 +31,34 @@ app.get('/api/data/:col/:document', async (req, res) => {
     if (['authors', 'genres'].includes(col)) {
         if (document === 'all') {
             data = await getDataBatch(col);
-            console.log(data);
             res.json(data);
         } else {
             data = await getData(col, document);
+            if (data?.shelves) {
+                let shelfData = {};
+                for (let shelf of data?.shelves) {
+                    if (shelf.includes('/')) {
+                        const parts = shelf.split('/');
+                        shelfData[shelf] = await getData(parts[0], parts[1]);
+                    } else {
+                        shelfData[`${col}/${document}/${shelf}`] = await getData(col, document, 'shelves', shelf);
+                    }
+                }
+                data.shelves = shelfData;
+            }
             res.json(data);
         }
+    } else {
+        res.status(401).json({ error: 'Unauthorized' });
+    }
+});
+
+app.get('/api/data/:col/:document/:subdocument', async (req, res) => {
+    console.log(`GET ${req.url}`);
+    const { col, document, subdocument } = req.params;
+    if (['authors', 'genres'].includes(col)) {
+        data = await getData(col, document, 'shelves', subdocument);
+        res.json(data);
     } else {
         res.status(401).json({ error: 'Unauthorized' });
     }

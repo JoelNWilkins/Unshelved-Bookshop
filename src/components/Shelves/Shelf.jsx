@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useComponentWidth, Plaque } from '..';
 
-const Shelf = ({ children, id, name, grouping, dimensions, droppable }) => {
+const Shelf = ({ children, id, name, path, dimensions, droppable }) => {
   // A function to position the books when the shelf is first created
   useEffect(() => {
     const shelf = document.getElementById(id);
@@ -117,7 +117,7 @@ const Shelf = ({ children, id, name, grouping, dimensions, droppable }) => {
     <section id={id} ref={ref} style={style}
       className={ droppable ? 'custom' : '' }
     >
-      { name && <Plaque id={id} name={name} to={`/${grouping}/${id}`} /> }
+      { name && <Plaque id={id} name={name} to={path} /> }
       <div className='shelf'>
         <div className='top' />
         <div className='bottom' />
@@ -130,7 +130,6 @@ const Shelf = ({ children, id, name, grouping, dimensions, droppable }) => {
 }
 
 Shelf.defaultProps = {
-  grouping: 'genres',
   dimensions: {height: 225, depth: 150},
   droppable: false
 }
