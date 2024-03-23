@@ -3,7 +3,7 @@ import { Shelf } from '../../components';
 
 function Custom({ books }) {
   return (
-    <Shelf id='custom' name='Custom' books={books} grouping='custom' droppable />
+    <Shelf id='custom' name='Custom' books={books} path='custom' droppable />
   );
 }
 

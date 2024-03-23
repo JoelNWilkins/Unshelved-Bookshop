@@ -1,6 +1,6 @@
 section {
   position: relative;
-  height: var(--height);
+  height: var(--shelf-height);
   width: 100%;
   margin-bottom: 50px;
   display: flex;
@@ -67,12 +67,12 @@ section {
   .back {
     height: 100%;
     width: 100%;
-    @include transform(translateZ(-var(--depth)));
+    @include transform(translateZ(-var(--shelf-depth)));
     background-color: var(--secondary-brown);
   }
 
   .top {
-    height: var(--depth);
+    height: var(--shelf-depth);
     width: 100%;
     bottom: 100%;
     @include transform-origin(bottom);
@@ -81,7 +81,7 @@ section {
   }
 
   .bottom {
-    height: var(--depth);
+    height: var(--shelf-depth);
     width: 100%;
     top: 100%;
     @include transform-origin(top);
@@ -91,7 +91,7 @@ section {
 
   .left {
     height: 100%;
-    width: var(--depth);
+    width: var(--shelf-depth);
     right: 100%;
     @include transform-origin(right);
     @include transform(rotateY(-90deg));
@@ -100,7 +100,7 @@ section {
 
   .right {
     height: 100%;
-    width: var(--depth);
+    width: var(--shelf-depth);
     left: 100%;
     @include transform-origin(left);
     @include transform(rotateY(90deg));

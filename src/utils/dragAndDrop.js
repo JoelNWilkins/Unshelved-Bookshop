@@ -45,7 +45,9 @@ function addToStack(event) {
     }
 
     // Randomly offset each book in the stack
-    element.style.left = (50 * Math.random())+'px';
+    let width = element.style.getPropertyValue('--width').replace('px', '');
+    let maxOffset = Math.max(10, 308 - width);
+    element.style.left = (maxOffset * Math.random())+'px';
     // Unset the z-index so that the books render in the correct order
     element.style.zIndex = null;
 

@@ -31,13 +31,14 @@
 
     // Increase the size of the book for the preview
     // Store the dimensions as variables for use by the child elements
-    --preview-height: calc(1.5 * var(--height));
-    --preview-width: calc(1.5 * var(--width));
-    --preview-depth: calc(1.5 * var(--depth));
+    --preview-scale: 1.5;
+    --preview-height: calc(var(--preview-scale) * var(--height));
+    --preview-width: calc(var(--preview-scale) * var(--width));
+    --preview-depth: calc(var(--preview-scale) * var(--depth));
     height: var(--preview-height);
     width: var(--preview-width);
-    font-size: calc(1.5 * var(--font-size));
-    --preview-blurb-size: calc(1.5 * var(--blurb-size));
+    font-size: calc(var(--preview-scale) * var(--font-size));
+    --preview-blurb-size: calc(var(--preview-scale) * var(--blurb-size));
 
     // Set the perspective for the 3D effect
     @include perspective(2000px);
@@ -178,7 +179,6 @@
       outline: none;
       @include transform-origin(bottom);
       @include transform(rotateX(90deg));
-      @include transition(1s);
     }
   
     .bottom {
@@ -266,9 +266,7 @@
   #preview {
     .book {
       // Reduce the size of the books being previewed to fit on the screen
-      --preview-height: var(--height);
-      --preview-width: var(--width);
-      --preview-depth: var(--depth);
+      --preview-scale: 1;
     }
   }
 }

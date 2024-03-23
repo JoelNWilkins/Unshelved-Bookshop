@@ -91,8 +91,11 @@ const Shelf = ({ children, id, name, path, dimensions, droppable }) => {
       }
 
       if (!custom && i === n - 1) {
+        let height = book.offsetHeight; //.style.getPropertyValue('--height').replace('px', '');
+        let prevHeight = books[n-2].offsetHeight; //.style.getPropertyValue('--height').replace('px', '');
         // Check if there is space for the last book on the right to be leaning
-        if (position + 0.26 * book.offsetHeight + 0.966 * book.offsetWidth < width) {
+        if ((position + 0.26 * book.offsetHeight + 0.966 * book.offsetWidth < width)
+            && (0.966 * height <= prevHeight)) {
           book.classList.add('leaning');
         } else {
           book.classList.remove('leaning');
@@ -109,8 +112,8 @@ const Shelf = ({ children, id, name, path, dimensions, droppable }) => {
   const { ref } = useComponentWidth(handleWidthChange);
 
   let style = {
-    '--height': (dimensions?.height * 2)+'px',
-    '--depth': (dimensions?.depth * 2)+'px'
+    '--shelf-height': (dimensions?.height * 2)+'px',
+    '--shelf-depth': (dimensions?.depth * 2)+'px'
   };
 
   return (
@@ -130,7 +133,7 @@ const Shelf = ({ children, id, name, path, dimensions, droppable }) => {
 }
 
 Shelf.defaultProps = {
-  dimensions: {height: 225, depth: 150},
+  dimensions: { height: 225, depth: 150 },
   droppable: false
 }
 

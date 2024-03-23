@@ -12,12 +12,12 @@
   cursor: grab;
 
   // Slide the books to the back of the shelves to start
-  @include transform(translateZ(calc(var(--width) - 300px)));
+  @include transform(translateZ(calc(var(--width) - var(--shelf-depth))));
   // Wait for a little bit before sliding the books out over half a second
   @include transition(transform 0.5s 0.1s);
   // Slide the books out from the shelves when hovering over them
   &:hover {
-    @include transform(translateZ(150px));
+    @include transform(translateZ(calc(1.75 * var(--width) - var(--shelf-depth))));
   }
 
   &.hide { display: none; }
@@ -35,7 +35,6 @@
     position: absolute;
     transform-style: preserve-3d;
     font-family: inherit;
-    z-index: 0;
   }
 
   .spine {
@@ -48,7 +47,6 @@
     font-size: inherit;
     border: 1px solid var(--border-color);
     background-color: var(--background-color);
-    z-index: 1;
   }
 
   .front, .back {
@@ -136,15 +134,86 @@ section .book {
 
 // CSS selector to only apply the leaning effect to a book on the shelf
 // after an unhidden book, to prevent the book from leaning on thin air
-section .book:not(.hide) + .book.leaning {
+section .book:not(.hide) + .book.leaning:not(.featured) {
   // Rotate around the bottom left corner to make the calculations neater
   @include transform-origin(bottom left);
   // Lean the book at a 15 degree angle with the top left corner just touching the book to the left
-  @include transform(translateZ(calc(var(--width) - 300px)) translateX(calc(0.26 * var(--height))) rotateZ(-15deg));
+  @include transform(translateZ(calc(var(--width) - var(--shelf-depth))) translateX(calc(0.26 * var(--height))) rotateZ(-15deg));
 
   // Rotate leaning books upright when sliding them out from the shelves
   &:hover {
-    @include transform(translateX(calc(0.1 * var(--height))) translateZ(150px));
+    @include transform(translateZ(calc(1.75 * var(--width) - var(--shelf-depth))) translateX(calc(0.1 * var(--height))));
+  }
+}
+
+section .book.featured {
+  width: var(--width);
+  @include transform-origin(bottom);
+  @include transform(translateZ(calc(-0.5 * var(--shelf-depth))) rotateX(15deg));
+
+  &:hover {
+    @include transform(unset);
+  }
+
+  .front {
+    height: var(--height);
+    width: var(--width);
+    left: 0;
+    filter: unset;
+    @include transform(translateZ(var(--depth)));
+  }
+
+  .spine {
+    height: var(--height);
+    width: var(--depth);
+    right: 100%;
+    @include transform-origin(right);
+    @include transform(translateZ(var(--depth)) rotateY(-90deg));
+    writing-mode: vertical-rl;
+    text-orientation: sideways;
+    font-size: inherit;
+    border-top: none;
+    border-bottom: none;
+  }
+
+  .edge {
+    display: block;
+    height: var(--height);
+    width: calc(1.1 * var(--depth));
+    top: 0;
+    left: 100%;
+    @include transform-origin(left);
+    @include transform(translateZ(calc(1.2 * var(--depth))) rotateY(90deg));
+    background-color: var(--paper-color);
+    border-top: 1px solid black;
+    filter: grayscale(25%);
+  }
+
+  .back {
+    display: none;
+    height: var(--height);
+    width: var(--width);
+    left: 0;
+    font-size: var(--blurb-size);
+    @include transform(unset);
+    filter: unset;
+  }
+
+  .top {
+    height: var(--depth);
+    width: var(--width);
+    bottom: 100%;
+    outline: none;
+    @include transform-origin(bottom);
+    @include transform(translateZ(var(--depth)) rotateX(90deg));
+  }
+
+  .bottom {
+    height: var(--depth);
+    width: var(--width);
+    top: 100%;
+    @include transform-origin(top);
+    @include transform(translateZ(var(--depth)) rotateX(-90deg));
   }
 }
 
@@ -153,6 +222,13 @@ aside .book {
   position: relative;
   height: var(--depth);
   width: var(--height);
+
+  // Slide the books to the back of the shelves to start
+  @include transform(translateZ(calc(0.25 * var(--width) - 150px)));
+  // Slide the books out from the shelves when hovering over them
+  &:hover {
+    @include transform(translateZ(calc(var(--width) - 150px)));
+  }
 
   .spine {
     height: var(--height);

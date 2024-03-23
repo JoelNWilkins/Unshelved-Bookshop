@@ -1,22 +1,16 @@
 {
   "classic": {
-    "name": "Classics",
     "id": "classic",
-    "books": [
-      "9780141040349",
-      "9780141040370"
-    ],
     "shelves": [
       "authors/jane-austen"
-    ]
+    ],
+    "name": "Classics",
+    "books": []
   },
   "crime": {
-    "name": "Crime",
-    "shelves": [
-      "authors/agatha-christie"
-    ],
-    "id": "crime",
     "books": [
+      "9780241425459",
+      "9780241425428",
       "9780007527496",
       "9780007527526",
       "9780008164904",
@@ -29,7 +23,17 @@
       "9780007527557",
       "9780008164966",
       "9780008129613"
-    ]
+    ],
+    "shelves": [
+      "authors/agatha-christie",
+      "authors/richard-osman"
+    ],
+    "id": "crime",
+    "name": "Crime",
+    "dimensions": {
+      "height": "265",
+      "depth": "175"
+    }
   },
   "default": {
     "shelves": [
@@ -41,26 +45,34 @@
     ]
   },
   "fantasy": {
-    "name": "Fantasy",
-    "shelves": [
-      "authors/tolkien"
-    ],
+    "id": "fantasy",
     "books": [
       "9780261103344",
       "9780261103573",
       "9780261103580",
       "9780261103597"
     ],
-    "id": "fantasy"
+    "name": "Fantasy",
+    "shelves": [
+      "authors/tolkien"
+    ]
   },
   "romance": {
+    "id": "romance",
+    "books": [
+      "9780141040349",
+      "9780141040370"
+    ],
     "shelves": [
       "authors/jane-austen"
     ],
-    "name": "Romance",
-    "id": "romance"
+    "name": "Romance"
   },
   "scifi": {
+    "shelves": [
+      "authors/isaac-asimov",
+      "authors/frank-herbert"
+    ],
     "id": "scifi",
     "books": [
       "9780008372354",
@@ -73,10 +85,6 @@
       "9780340960196",
       "9781473655324"
     ],
-    "name": "Science Fiction",
-    "shelves": [
-      "authors/isaac-asimov",
-      "authors/frank-herbert"
-    ]
+    "name": "Science Fiction"
   }
 }

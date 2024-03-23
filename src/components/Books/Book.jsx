@@ -17,12 +17,19 @@ function Book({ details }) {
       title='Double click to preview the book or drag and drop the book onto the stack on the right'
     >
       <div className='top' />
+      <div className='bottom' />
       <div className='page'>
         <h1>{details?.title}</h1>
         <h2>{details?.author}</h2>
-        { details?.description && details?.description.map((line) => (
+        { details?.published && <p>Published: {new Date(details?.published).toLocaleDateString()}</p> }
+        { details?.publisher && <p>Publisher: {details?.publisher}</p> }
+        { details?.isbn && <p>ISBN-13: {details?.isbn}</p> }
+        { details?.pages && <p>Number of pages: {details?.pages}</p> }
+        { details?.weight && <p>Weight: {details?.weight}</p> }
+        { details?.dimensions && <p>Dimensions: {details?.dimensions.height} x {details?.dimensions.width} x {details?.dimensions.depth} mm</p> }
+        {/* details?.description && details?.description.map((line) => (
           <p>{line}</p>
-        ))}
+        )) */}
       </div>
       { details?.images?.back !== undefined ?
         <img className='back' src={details?.images?.back} alt={details?.title + ' back cover'} />

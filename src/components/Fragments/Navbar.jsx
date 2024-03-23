@@ -26,6 +26,7 @@ function Navbar({ name, setName, setToken }) {
             <button id='authors'>Authors</button>
             <div className='dropdown_content'>
               <Link to='/authors/agatha-christie'>Agatha Christie</Link>
+              <Link to='/authors/richard-osman'>Richard Osman</Link>
               <Link to='/authors/isaac-asimov'>Isaac Asimov</Link>
               <Link to='/authors/frank-herbert'>Frank Herbert</Link>
               <Link to='/authors/tolkien'>J. R. R. Tolkien</Link>
