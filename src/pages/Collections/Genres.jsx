@@ -23,13 +23,14 @@ function Genre({ books }) {
         shelves['genres/'+genre] = data;
         setData(shelves);
       }
-    });
+    })
+    .catch(error => console.log(error));
 
     return () => {
       // Cleanup state
-      setData([]);
+      setData({});
     };
-  }, [location, setData]);
+  }, [location]);
   
   return (
     <Bookcase books={books} shelves={data} />

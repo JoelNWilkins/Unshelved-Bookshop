@@ -1,7 +1,5 @@
-const url = "http://127.0.0.1:5000";
-
 async function getData(endpoint, token) {
-    return fetch((endpoint[0] === "/") ? url+endpoint : url+"/"+endpoint, {
+    return fetch((endpoint[0] === "/") ? endpoint : "/"+endpoint, {
         method: "GET",
         headers: new Headers({Authorization: `Bearer ${token}`})
     })
@@ -10,7 +8,7 @@ async function getData(endpoint, token) {
 }
 
 async function postData(endpoint, data) {
-    return fetch((endpoint[0] === "/") ? url+endpoint : url+"/"+endpoint, {
+    return fetch((endpoint[0] === "/") ? endpoint : "/"+endpoint, {
         method: "POST",
         headers: { "Content-Type": "application/json; charset=UTF-8" },
         body: JSON.stringify(data)
@@ -20,7 +18,7 @@ async function postData(endpoint, data) {
 }
 
 async function updateData(endpoint, token, data) {
-    return fetch((endpoint[0] === "/") ? url+endpoint : url+"/"+endpoint, {
+    return fetch((endpoint[0] === "/") ? endpoint : "/"+endpoint, {
         method: "POST",
         headers: new Headers({
             Authorization: `Bearer ${token}`,

@@ -22,8 +22,10 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 
-/backend/helloworld.js
-/backend/scripts
+/backend
 
 /old
 characters.txt
+
+.firebase
+firebase-debug.log

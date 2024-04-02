@@ -9,7 +9,7 @@ function App() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    getData('books.json').then(books => { console.log("Number of books:", Object.keys(books).length); setBooks(books); });
+    getData("/api/books").then(books => { console.log("Number of books:", Object.keys(books).length); setBooks(books); });
 
     window.addEventListener('dragstart', drag);
     window.addEventListener('dblclick', preview);

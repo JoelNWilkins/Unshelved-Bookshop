@@ -1,7 +1,7 @@
 import React from 'react';
 
 function Book({ details }) {
-  let style = {
+  const style = {
     ...details?.style,
     '--height': (details?.dimensions?.height * 2)+'px',
     '--width': (details?.dimensions?.width * 2)+'px',
