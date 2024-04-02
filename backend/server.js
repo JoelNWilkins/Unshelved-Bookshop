@@ -1,22 +1,22 @@
-const throng = require('throng')
+const throng = require('throng');
 
-const WORKERS = process.env.WEB_CONCURRENCY || 1
-const PORT = process.env.PORT || 5000
+const WORKERS = process.env.WEB_CONCURRENCY || 1;
+const PORT = process.env.PORT || 5000;
 
 throng(start,
 {
   workers: WORKERS,
   lifetime: Infinity
-})
+});
 
 function start() {
     const express = require('express');
-    const path = require('path');
     const cors = require('cors');
+    const path = require('path');
     const bodyParser = require('body-parser');
     const bcrypt = require('bcrypt');
     const jwt = require('jsonwebtoken');
-    const { saveData, getData, updateData, deleteData, getDataInSubcollection, getDataBatch } = require('./firebase.js');
+    const { saveData, getData, getDataBatch } = require('./firebase.js');
 
     const app = express();
     const PORT = process.env.PORT || 5000;
@@ -152,4 +152,4 @@ function start() {
     app.listen(PORT, () => {
         console.log(`Server is running on port ${PORT}`);
     });
-}
+};
