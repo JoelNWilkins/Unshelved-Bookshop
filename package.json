@@ -27,7 +27,6 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "install": "npm i --prefix ... --production=false",
     "frontend": "npm start",
     "api": "cd backend && nodemon server.js",
     "dev": "concurrently --kill-others-on-fail \"npm run api\" \"npm run frontend\""
