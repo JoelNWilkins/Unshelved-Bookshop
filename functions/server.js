@@ -24,8 +24,8 @@ app.use(bodyParser.json()); */
 const cors = {
   cors: [
     "http://localhost:5000/",
-    "https://us-central1-project-7097cem.cloudfunctions.net/"
-  ]
+    "https://us-central1-project-7097cem.cloudfunctions.net/",
+  ],
 };
 
 exports.books = onRequest(cors,
@@ -33,7 +33,7 @@ exports.books = onRequest(cors,
       res.setHeader("Access-Control-Allow-Origin", "*");
       console.log("GET /books");
       const books = await getDataBatch("books");
-      res.status(200).send({"data": books});
+      res.status(200).send({data: books});
     },
 );
 
@@ -75,7 +75,7 @@ exports.data = onRequest(cors,
         }
         return res.send({"data": data});
       } else {
-        return res.status(401).send({error: "Unauthorized", "data": null});
+        return res.status(401).send({error: "Unauthorized", data: null});
       }
     },
 );
@@ -94,13 +94,19 @@ exports.register = onRequest(cors,
         if (id) {
           // Create a JWT token for authentication
           const token = jwt.sign({userId: id}, SECRET_KEY, {expiresIn: "1h"});
-          return res.send({"data": token});
+          return res.send({data: token});
         } else {
-          return res.status(500).send({error: "Internal Server Error", "data": null});
+          return res.status(500).send({
+            error: "Internal Server Error",
+            data: null,
+          });
         }
       } catch (err) {
         console.log(err);
-        return res.status(500).send({error: "Internal Server Error", "data": null});
+        return res.status(500).send({
+          error: "Internal Server Error",
+          data: null,
+        });
       }
     },
 );
@@ -120,13 +126,19 @@ exports.login = onRequest(cors,
 
             // Store the session in the database
             saveData("sessions", null, {"user_id": username, "token": token});
-            return res.send({"data": token});
+            return res.send({data: token});
           }
         }
-        return res.status(401).send({error: "Invalid username or password", "data": null});
+        return res.status(401).send({
+          error: "Invalid username or password",
+          data: null,
+        });
       } catch (err) {
         console.log(err);
-        return res.status(500).send({error: "Internal Server Error", "data": null});
+        return res.status(500).send({
+          error: "Internal Server Error",
+          data: null,
+        });
       }
     },
 );
