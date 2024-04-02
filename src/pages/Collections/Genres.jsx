@@ -13,18 +13,23 @@ function Genre({ books }) {
       genre = 'default';
     }
     console.log(`Getting data for genre with id ${genre}`);
-    getPublic(`data/genres/${genre}`)
-    .then(data => {
-      console.log(data);
-      if (data?.shelves) {
-        setData(data?.shelves);
-      } else {
-        let shelves = {};
-        shelves['genres/'+genre] = data;
-        setData(shelves);
+    const getGenre = async () => {
+      try {
+        const response = await getPublic(`data/genres/${genre}`);
+        console.log("Get genre");
+        console.log(response?.data);
+        if (response?.data.shelves) {
+          setData(response?.data.shelves);
+        } else {
+          let shelves = {};
+          shelves['genres/'+genre] = response.data;
+          setData(shelves);
+        }
+      } catch (err) {
+        console.log(`Error getting genre ${genre}: ${err}`)
       }
-    })
-    .catch(error => console.log(error));
+    };
+    getGenre();
 
     return () => {
       // Cleanup state

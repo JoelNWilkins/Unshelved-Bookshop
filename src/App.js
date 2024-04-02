@@ -9,9 +9,17 @@ function App() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    getPublic("books")
-    .then(books => { console.log("Number of books:", Object.keys(books).length); setBooks(books); })
-    .catch(error => console.log(error));
+    const getBooks = async () => {
+      try {
+        const response = await getPublic("books");
+        console.log("Get books");
+        console.log(response?.data);
+        setBooks(response?.data || {});
+      } catch (err) {
+        console.log("Error getting books: "+err)
+      }
+    };
+    getBooks();
 
     window.addEventListener('dragstart', drag);
     window.addEventListener('dblclick', preview);
