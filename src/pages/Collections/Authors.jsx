@@ -11,15 +11,20 @@ function Authors({ books }) {
     let author = location.pathname.replace('/authors/', '');
     console.log(`Getting data for author with id ${author}`);
     getData(`/api/data/authors/${author}`, null)
-      .then(data => {
-        if (data?.shelves) {
-          setData(data?.shelves);
-        } else {
-          let shelves = {};
-          shelves['authors/'+author] = data;
-          setData(shelves);
-        }
-      });
+    .then(data => {
+      if (data?.shelves) {
+        setData(data?.shelves);
+      } else {
+        let shelves = {};
+        shelves['authors/'+author] = data;
+        setData(shelves);
+      }
+    });
+
+    return () => {
+      // Cleanup state
+      setData([]);
+    };
   }, [location, setData]);
   
   return (

@@ -20,8 +20,8 @@ const useComponentWidth = (onWidthChange) => {
     window.addEventListener('resize', handleResize);
     handleResize(); // Initial width
 
-    // Clean up listener on unmount
     return () => {
+    // Clean up listener on unmount
       window.removeEventListener('resize', handleResize);
     };
   }, [onWidthChange]);

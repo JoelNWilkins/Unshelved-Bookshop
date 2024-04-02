@@ -102,6 +102,7 @@ function Preview() {
     window.addEventListener('click', handlePreviewEvent);
     
     return () => {
+    // Clean up listeners on unmount
       window.removeEventListener('keydown', handlePreviewEvent);
       window.removeEventListener('click', handlePreviewEvent);
     };

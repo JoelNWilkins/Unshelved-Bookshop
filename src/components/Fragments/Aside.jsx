@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IconContext } from "react-icons";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { fireEvent } from '@testing-library/react';
@@ -32,7 +32,14 @@ function Aside() {
     }
   }
 
-  window.addEventListener("scroll", scrollResize);
+  useEffect(() => {
+    window.addEventListener("scroll", scrollResize);
+
+    return () => {
+    // Clean up listener on unmount
+      window.addEventListener("scroll", scrollResize);
+    };
+  }, []);
 
   return (
     <>

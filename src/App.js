@@ -10,10 +10,16 @@ function App() {
 
   useEffect(() => {
     getData('books.json').then(books => { console.log("Number of books:", Object.keys(books).length); setBooks(books); });
-  }, []);
 
-  document.addEventListener('dragstart', drag);
-  document.addEventListener('dblclick', preview);
+    window.addEventListener('dragstart', drag);
+    window.addEventListener('dblclick', preview);
+
+    return () => {
+    // Clean up listeners on unmount
+      window.removeEventListener('dragstart', drag);
+      window.removeEventListener('dblclick', preview);
+    };
+  }, []);
 
   return (
     <>

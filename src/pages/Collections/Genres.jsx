@@ -14,16 +14,21 @@ function Genre({ books }) {
     }
     console.log(`Getting data for genre with id ${genre}`);
     getData(`/api/data/genres/${genre}`, null)
-      .then(data => {
-        console.log(data);
-        if (data?.shelves) {
-          setData(data?.shelves);
-        } else {
-          let shelves = {};
-          shelves['genres/'+genre] = data;
-          setData(shelves);
-        }
-      });
+    .then(data => {
+      console.log(data);
+      if (data?.shelves) {
+        setData(data?.shelves);
+      } else {
+        let shelves = {};
+        shelves['genres/'+genre] = data;
+        setData(shelves);
+      }
+    });
+
+    return () => {
+      // Cleanup state
+      setData([]);
+    };
   }, [location, setData]);
   
   return (
