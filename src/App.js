@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Header, Navbar, Aside, Footer, Preview } from './components';
 import { Pages } from './pages';
-import { useName, useToken, getData, drag, allowDrop, removeFromStack, preview } from './utils';
+import { useName, useToken, getPublic, drag, allowDrop, removeFromStack, preview } from './utils';
 
 function App() {
   const { name, setName } = useName();
@@ -9,7 +9,9 @@ function App() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    getData("/api/books").then(books => { console.log("Number of books:", Object.keys(books).length); setBooks(books); });
+    getPublic("api/books")
+    .then(books => { console.log("Number of books:", Object.keys(books).length); setBooks(books); })
+    .catch(error => console.log(error));
 
     window.addEventListener('dragstart', drag);
     window.addEventListener('dblclick', preview);

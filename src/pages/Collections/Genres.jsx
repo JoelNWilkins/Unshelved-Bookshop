@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Bookcase } from '../../components';
-import { getData } from '../../utils';
+import { getPublic } from '../../utils';
 
 function Genre({ books }) {
   const [data, setData] = useState({});
@@ -13,7 +13,7 @@ function Genre({ books }) {
       genre = 'default';
     }
     console.log(`Getting data for genre with id ${genre}`);
-    getData(`/api/data/genres/${genre}`, null)
+    getPublic(`/api/data/genres/${genre}`)
     .then(data => {
       console.log(data);
       if (data?.shelves) {

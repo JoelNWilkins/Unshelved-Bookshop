@@ -11,7 +11,7 @@ const SECRET_KEY = "your_secret_key";
 const app = express();
 
 // Allow cross-origin requests
-app.use(cors());
+app.use(cors({origin: true}));
 
 // Serve static files from the "public" directory
 // app.use(express.static(path.join(__dirname, "public")));

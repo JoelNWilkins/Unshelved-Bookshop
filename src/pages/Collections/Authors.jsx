@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { Bookcase } from '../../components';
-import { getData } from '../../utils';
+import { getPublic } from '../../utils';
 
 function Authors({ books }) {
   const [data, setData] = useState({});
@@ -10,7 +10,7 @@ function Authors({ books }) {
   useEffect(() => {
     let author = location.pathname.replace('/authors/', '');
     console.log(`Getting data for author with id ${author}`);
-    getData(`/api/data/authors/${author}`, null)
+    getPublic(`/api/data/authors/${author}`)
     .then(data => {
       if (data?.shelves) {
         setData(data?.shelves);
