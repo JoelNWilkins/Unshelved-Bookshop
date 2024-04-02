@@ -9,7 +9,7 @@ function App() {
   const [books, setBooks] = useState([]);
 
   useEffect(() => {
-    getPublic("api/books")
+    getPublic("books")
     .then(books => { console.log("Number of books:", Object.keys(books).length); setBooks(books); })
     .catch(error => console.log(error));
 

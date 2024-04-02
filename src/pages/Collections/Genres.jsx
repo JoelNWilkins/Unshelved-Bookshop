@@ -13,7 +13,7 @@ function Genre({ books }) {
       genre = 'default';
     }
     console.log(`Getting data for genre with id ${genre}`);
-    getPublic(`/api/data/genres/${genre}`)
+    getPublic(`data/genres/${genre}`)
     .then(data => {
       console.log(data);
       if (data?.shelves) {

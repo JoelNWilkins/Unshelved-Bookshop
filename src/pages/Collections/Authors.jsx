@@ -10,7 +10,7 @@ function Authors({ books }) {
   useEffect(() => {
     let author = location.pathname.replace('/authors/', '');
     console.log(`Getting data for author with id ${author}`);
-    getPublic(`/api/data/authors/${author}`)
+    getPublic(`data/authors/${author}`)
     .then(data => {
       if (data?.shelves) {
         setData(data?.shelves);

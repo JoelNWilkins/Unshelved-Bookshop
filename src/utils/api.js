@@ -15,37 +15,21 @@ const app = initializeApp(firebaseConfig);
 const functions = getFunctions(app);
 
 async function getPublic(endpoint) {
-    const end = (endpoint[0] === "/") ? endpoint.substring(1) : endpoint;
-    const callableResponse = httpsCallable(functions, end);
-    return callableResponse()
-    .then(result => {return result.data})
-    .catch(error => console.log(error));
-}
-
-async function getData(endpoint, token) {
-    return fetch((endpoint[0] === "/") ? endpoint.substring(1) : endpoint, {
-        method: "GET",
-        headers: new Headers({Authorization: `Bearer ${token}`})
-    })
-    .then(response => {return response.json()})
+    const callableResponse = httpsCallable(functions, endpoint);
+    return callableResponse({})
+    .then(response => {console.log(response.data); return response.data})
     .catch(error => console.log(error));
 }
 
 async function postData(endpoint, data) {
-    /* return fetch((endpoint[0] === "/") ? endpoint : "/"+endpoint, {
-        method: "POST",
-        headers: { "Content-Type": "application/json; charset=UTF-8" },
-        body: JSON.stringify(data)
-    }) */
-    const end = (endpoint[0] === "/") ? endpoint.substring(1) : endpoint;
-    const callableResponse = httpsCallable(functions, end);
+    const callableResponse = httpsCallable(functions, endpoint);
     return callableResponse(data)
-    .then(response => {return response.json()})
+    .then(response => {console.log(response.data); return response.data})
     .catch(error => console.log(error));
 }
 
 async function updateData(endpoint, token, data) {
-    return fetch((endpoint[0] === "/") ? endpoint.substring(1) : endpoint, {
+    return fetch(endpoint, {
         method: "POST",
         headers: new Headers({
             Authorization: `Bearer ${token}`,
@@ -53,17 +37,17 @@ async function updateData(endpoint, token, data) {
         }),
         body: JSON.stringify(data)
     })
-    .then(response => {return response.json()})
+    .then(response => {console.log(response); return response.json()})
     .catch(error => console.log(error));
 }
 
 async function deleteData(endpoint, token) {
-    return fetch((endpoint[0] === "/") ? endpoint.substring(1) : endpoint, {
+    return fetch(endpoint, {
         method: "DELETE",
         headers: new Headers({Authorization: `Bearer ${token}`})
     })
-    .then(response => {return response.json()})
+    .then(response => {console.log(response); return response.json()})
     .catch(error => console.log(error));
 }
 
-export { getPublic, getData, postData, updateData, deleteData };
+export { getPublic, postData, updateData, deleteData };
