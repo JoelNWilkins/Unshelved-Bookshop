@@ -9,18 +9,23 @@ function Authors({ books }) {
 
   useEffect(() => {
     let author = location.pathname.replace('/authors/', '');
-    console.log(`Getting data for author with id ${author}`);
-    getPublic(`data/authors/${author}`)
-    .then(data => {
-      if (data?.shelves) {
-        setData(data?.shelves);
-      } else {
-        let shelves = {};
-        shelves['authors/'+author] = data;
-        setData(shelves);
+    const getAuthor = async () => {
+      try {
+        const response = await getPublic(`data/authors/${author}`);
+        console.log(`Getting data for author with id ${author}`);
+        console.log(response?.data);
+        if (response?.data.shelves) {
+          setData(response?.data.shelves);
+        } else {
+          let shelves = {};
+          shelves['authors/'+author] = response.data;
+          setData(shelves);
+        }
+      } catch (err) {
+        console.log(`Error getting author ${author}: ${err}`)
       }
-    })
-    .catch(error => console.log(error));
+    };
+    getAuthor();
 
     return () => {
       // Cleanup state

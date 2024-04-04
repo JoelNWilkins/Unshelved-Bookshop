@@ -5,7 +5,7 @@ import { Genres, Authors, Custom, Register, SignIn } from './';
 function Pages({ name, setName, token, setToken, books }) {
   return (
     <Routes>
-      <Route path='/' element={<Genres books={books} />} />
+      <Route path='/*' element={<Genres books={books} />} />
       <Route path='/genres/*' element={<Genres books={books} />} />
       <Route path='/authors/*' element={<Authors books={books} />} />
       <Route path='/custom/*' element={<Custom books={books} />} />

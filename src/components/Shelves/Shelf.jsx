@@ -51,7 +51,10 @@ const Shelf = ({ children, id, name, path, dimensions, droppable }) => {
     const shelf = document.getElementById(id);
     let custom = shelf.classList.contains('custom');
     // Start from index 2 to skip the Plaque and shelf div
-    const books = Array.from(shelf.children).slice(2);
+    let books = [];
+    if (shelf.children.length > 2) {
+      books = Array.from(shelf.children).slice(2);
+    }
     const n = books.length;
     let width = newWidth
     if (width === undefined) {

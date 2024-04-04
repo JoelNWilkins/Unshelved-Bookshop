@@ -16,7 +16,6 @@ exports.books = onRequest(async (req, res) => {
     console.log(`${req.method} /books`);
     cors(res);
 
-    console.log("GET /books");
     const books = await getDataBatch("books");
     res.status(200).send({data: books});
 });

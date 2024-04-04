@@ -12,11 +12,10 @@ function Genre({ books }) {
     if (genre[0] === '/') {
       genre = 'default';
     }
-    console.log(`Getting data for genre with id ${genre}`);
     const getGenre = async () => {
       try {
         const response = await getPublic(`data/genres/${genre}`);
-        console.log("Get genre");
+        console.log(`Getting data for genre with id ${genre}`);
         console.log(response?.data);
         if (response?.data.shelves) {
           setData(response?.data.shelves);
