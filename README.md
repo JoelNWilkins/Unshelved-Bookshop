@@ -1,4 +1,6 @@
-# 7097CEM - Modern Web Technologies
+# Unshelved Bookshop
+
+Originally created as coursework for the module 7097CEM Modern Web Technologies.
 
 ## Running
 
