@@ -6,12 +6,12 @@
   --paper-color: #EDE79F;
   --border-color: var(--background-color);
   --blurb-text-transform: none;
-  transform-style: preserve-3d;
 
   // Change the cursor to indicate the books can be dragged and dropped
   cursor: grab;
 
   // Slide the books to the back of the shelves to start
+  @include transform-style(preserve-3d);
   @include transform(translateZ(calc(var(--width) - var(--shelf-depth))));
   // Wait for a little bit before sliding the books out over half a second
   @include transition(transform 0.5s 0.1s);
@@ -33,8 +33,8 @@
 
   .spine, .front, .back, .top, .bottom, .edge, .page {
     position: absolute;
-    transform-style: preserve-3d;
     font-family: inherit;
+    @include transform-style(preserve-3d);
   }
 
   .spine {

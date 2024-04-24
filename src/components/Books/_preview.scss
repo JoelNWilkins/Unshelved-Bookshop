@@ -239,12 +239,16 @@
     outline: none;
     border: 3px solid black;
     border-radius: 100%;
+    color: black;
     background-color: var(--primary-red);
 
     // Enable click events
     pointer-events: all;
     // Disable click events for child elements
-    * { pointer-events: none; }
+    * {
+      color: inherit;
+      pointer-events: none;
+    }
     // Change the cursor to indicate that there is an action
     cursor: pointer;
 

@@ -12,6 +12,13 @@
           transform-origin: $property;
 }
 
+@mixin transform-style($property) {
+  -webkit-transform-style: $property;
+     -moz-transform-style: $property;
+       -o-transform-style: $property;
+          transform-style: $property;
+}
+
 @mixin transition($property) {
   -webkit-transition: $property;
      -moz-transition: $property;

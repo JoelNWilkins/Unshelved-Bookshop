@@ -78,6 +78,7 @@ aside {
   border-bottom-left-radius: 5px;
   outline: none;
   //color: var(--primary-yellow);
+  color: black;
   background-color: var(--primary-red);
 
   &:hover {
@@ -85,7 +86,10 @@ aside {
   }
 
   // Disable click events for the child elements
-  * { pointer-events: none; }
+  * {
+    color: inherit;
+    pointer-events: none;
+  }
   // Change the cursor to indicate that there is an action
   cursor: pointer;
 }
