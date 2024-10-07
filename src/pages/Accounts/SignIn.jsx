@@ -15,7 +15,7 @@ function SignIn({ setName, setToken }) {
   const handleSubmit = async e => {
     e.preventDefault();
     
-    const response = await postData("login", formData);
+    const response = await postData("login", "", formData);
     if (response === undefined) {
       alert("Could not connect to the login server. Please try again later.")
     } else if ("token" in response) {

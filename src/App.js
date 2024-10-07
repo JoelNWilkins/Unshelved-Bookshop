@@ -11,7 +11,7 @@ function App() {
   useEffect(() => {
     const getBooks = async () => {
       try {
-        const response = await getPublic("books");
+        const response = await getPublic("books", "");
         console.log("Get books");
         console.log(response?.data);
         setBooks(response?.data || {});

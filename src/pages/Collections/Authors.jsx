@@ -11,7 +11,7 @@ function Authors({ books }) {
     let author = location.pathname.replace('/authors/', '');
     const getAuthor = async () => {
       try {
-        const response = await getPublic(`data/authors/${author}`);
+        const response = await getPublic('data', `authors/${author}`);
         console.log(`Getting data for author with id ${author}`);
         console.log(response?.data);
         if (response?.data.shelves) {

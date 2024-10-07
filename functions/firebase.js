@@ -1,67 +1,24 @@
-// Import the functions you need from the SDKs you need
-const {initializeApp} = require("firebase-admin/app");
-const {getFirestore} = require("firebase-admin/firestore");
 const {
-  collection, doc, // query, where,
-  addDoc, setDoc, deleteDoc, updateDoc,
-  getDoc, // getDocFromCache, getDocFromServer,
-  getDocs, // getDocsFromCache, getDocsFromServer,
-  // initializeFirestore, CACHE_SIZE_UNLIMITED,
-  // persistentLocalCache, persistentMultipleTabManager
-} = require("firebase/firestore");
+  getFirestore,
+} = require("firebase-admin/firestore");
 
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+const admin = require("firebase-admin");
+const serviceAccount = require("./adminsdk.json");
 
-// Your web app"s Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDZBVCt1qKZnZV4P2f6_E0lkogL2Fphric",
-  authDomain: "project-7097cem.firebaseapp.com",
-  projectId: "project-7097cem",
-  storageBucket: "project-7097cem.appspot.com",
-  messagingSenderId: "396007541262",
-  appId: "1:396007541262:web:d120667ad3bf53ed3a0a5f",
-};
-
-// Initialize Firebase
-initializeApp(firebaseConfig);
-
-// Use multi-tab IndexedDb persistence.
-// initializeFirestore(app, {
-//   localCache: persistentLocalCache(/*settings*/{
-//     tabManager: persistentMultipleTabManager(),
-//     cacheSizeBytes: CACHE_SIZE_UNLIMITED
-//   }),
-// });
-
-/*
-getDoc = async (docRef) => {
-  try {
-    return getDocFromCache(docRef);
-  } catch (err) {
-    return getDocFromServer(docRef);
-  }
-}
-
-getDocs = async (q) => {
-  try {
-    return getDocsFromCache(q);
-  } catch (err) {
-    return getDocsFromServer(q);
-  }
-}
-*/
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 const saveData = async (col, document, data) => {
   try {
     const db = getFirestore();
+    const colRef = db.collection(col);
     if (document) {
-      const docRef = doc(db, col, document);
-      await setDoc(docRef, data);
+      const docRef = colRef.doc(document);
+      await docRef.set(data);
       return data?.username;
     } else {
-      const colRef = collection(db, col);
-      const docRef = await addDoc(colRef, data);
+      const docRef = await colRef.add(data);
       return docRef.id;
     }
   } catch (err) {
@@ -72,9 +29,9 @@ const saveData = async (col, document, data) => {
 const saveDataBatch = async (col, data) => {
   try {
     const db = getFirestore();
+    const docRef = db.collection(col).doc(document);
     Object.keys(data).forEach(async (document) => {
-      const docRef = doc(db, col, document);
-      await setDoc(docRef, data[document]);
+      await docRef.set(data[document]);
     });
   } catch (err) {
     console.log(err);
@@ -84,17 +41,18 @@ const saveDataBatch = async (col, data) => {
 const saveDataInSubcol = async (col, document, subcol, details, data) => {
   try {
     const db = getFirestore();
-    let docRef = doc(db, col, document);
+    const colRef = db.collection(col);
+    let docRef;
     if (document) {
-      await setDoc(docRef, details);
+      docRef = colRef.doc(document);
+      await docRef.set(details);
     } else {
-      const colRef = collection(db, col);
-      docRef = await addDoc(colRef, details);
+      docRef = await colRef.add(details);
     }
-    const subColRef = collection(docRef, subcol);
+    const subColRef = docRef.collection(subcol);
     for (const book of data) {
-      const subDocRef = doc(subColRef, book.isbn);
-      await setDoc(subDocRef, book);
+      const subDocRef = subColRef.doc(book.isbn);
+      await subDocRef.set(book);
     }
     return docRef.id;
   } catch (err) {
@@ -105,15 +63,15 @@ const saveDataInSubcol = async (col, document, subcol, details, data) => {
 const getData = async (col, document, subcol, subdocument) => {
   try {
     const db = getFirestore();
-    const docRef = doc(db, col, document);
+    const docRef = db.collection(col).doc(document);
     if (subcol) {
-      const subColRef = collection(docRef, subcol);
+      const subColRef = docRef.collection(subcol);
       if (subdocument) {
-        const subDocRef = doc(subColRef, subdocument);
-        const subDocSnap = await getDoc(subDocRef);
+        const subDocRef = subColRef.doc(subdocument);
+        const subDocSnap = await subDocRef.get();
         return subDocSnap.data();
       } else {
-        const subColSnap = await getDocs(subColRef);
+        const subColSnap = await subColRef.get();
         const data = {};
         for (const subDoc of subColSnap.docs) {
           data[`${col}/${document}/${subDoc.id}`] = subDoc.data();
@@ -121,7 +79,7 @@ const getData = async (col, document, subcol, subdocument) => {
         return data;
       }
     } else {
-      const docSnap = await getDoc(docRef);
+      const docSnap = await docRef.get();
       return docSnap.data();
     }
   } catch (err) {
@@ -132,8 +90,9 @@ const getData = async (col, document, subcol, subdocument) => {
 const getDataBatch = async (col) => {
   try {
     const db = getFirestore();
-    const colRef = collection(db, col);
-    const querySnap = await getDocs(colRef);
+    console.log(db.databaseId);
+    const colRef = db.collection(col);
+    const querySnap = await colRef.get();
     const data = {};
     querySnap.forEach((docSnap) => {
       data[docSnap.id] = docSnap.data();
@@ -147,11 +106,11 @@ const getDataBatch = async (col) => {
 const getDataInSubcol = async (col, document, subcol) => {
   try {
     const db = getFirestore();
-    const docRef = doc(db, col, document);
-    const docSnap = await getDoc(docRef);
+    const docRef = db.collection(col).doc(document);
+    const docSnap = await docRef.get();
     const data = docSnap.data();
-    const subColRef = collection(docRef, subcol);
-    const subColSnap = await getDocs(subColRef);
+    const subColRef = docRef.collection(subcol);
+    const subColSnap = await subColRef.get();
     data.books = [];
     for (const subDoc of subColSnap.docs) {
       data.books.push(subDoc.data());
@@ -165,8 +124,8 @@ const getDataInSubcol = async (col, document, subcol) => {
 const deleteData = async (col, document) => {
   try {
     const db = getFirestore();
-    const docRef = doc(db, col, document);
-    await deleteDoc(docRef);
+    const docRef = db.collection(col).doc(document);
+    await docRef.delete();
   } catch (err) {
     console.log(err);
   }
@@ -175,7 +134,8 @@ const deleteData = async (col, document) => {
 const updateData = async (col, document, data) => {
   try {
     const db = getFirestore();
-    await updateDoc(doc(db, col, document), data);
+    const docRef = db.collection(col).doc(document);
+    await docRef.update(data);
   } catch (err) {
     console.log(err);
   }

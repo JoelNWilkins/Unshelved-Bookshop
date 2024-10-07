@@ -1,7 +1,7 @@
 const {onRequest} = require("firebase-functions/v2/https");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const {saveData, getData, getDataBatch} = require("./firebase.js");
+const {saveData, getData, getDataBatch} = require("./firebase-copy.js");
 
 const SECRET_KEY = "your_secret_key";
 

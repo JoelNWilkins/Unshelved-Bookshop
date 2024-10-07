@@ -29,6 +29,7 @@ firebase-debug.log
 # secret
 **/.env
 
+/functions/*adminsdk*.json
 /backend
 /old
 characters.txt

@@ -1,15 +1,17 @@
-const formatEndpoint = (endpoint) => {
+const formatEndpoint = (base, endpoint) => {
     const end = (endpoint[0] === "/") ? endpoint.stringify(1) : endpoint;
     if (window.location.hostname === "localhost") {
-        return "http://127.0.0.1:5000/"+end;
-        //return "http://127.0.0.1:5000/project-7097cem/us-central1/"+end;
+        // return "http://127.0.0.1:5000/"+end;
+        console.log("http://127.0.0.1:5000/project-7097cem/us-central1/"+base+"/"+end);
+        return "http://127.0.0.1:5000/project-7097cem/us-central1/"+base+"/"+end;
     } else {
-        return "https://us-central1-project-7097cem.cloudfunctions.net/"+end;
+        return `https://${base}--r5h2aumagq-uc.a.run.app/${end}`;
+        //return "https://us-central1-project-7097cem.cloudfunctions.net/"+end;
     }
 };
 
-async function getPublic(endpoint) {
-    const response = await fetch(formatEndpoint(endpoint), {
+async function getPublic(base, endpoint) {
+    const response = await fetch(formatEndpoint(base, endpoint), {
         method: "GET",
         headers: new Headers({
             crossorigin: true,
@@ -23,8 +25,8 @@ async function getPublic(endpoint) {
     return result;
 }
 
-async function postData(endpoint, data, token=null) {
-    const response = await fetch(formatEndpoint(endpoint), {
+async function postData(base, endpoint, data, token=null) {
+    const response = await fetch(formatEndpoint(base, endpoint), {
         method: "POST",
         headers: new Headers({
             crossorigin: true,
@@ -40,8 +42,8 @@ async function postData(endpoint, data, token=null) {
     return result;
 }
 
-async function updateData(endpoint, token, data) {
-    return fetch(endpoint, {
+async function updateData(base, endpoint, token, data) {
+    return fetch(base, endpoint, {
         method: "POST",
         headers: new Headers({
             Authorization: `Bearer ${token}`,
@@ -53,8 +55,8 @@ async function updateData(endpoint, token, data) {
     .catch(error => console.log(error));
 }
 
-async function deleteData(endpoint, token) {
-    return fetch(endpoint, {
+async function deleteData(base, endpoint, token) {
+    return fetch(base, endpoint, {
         method: "DELETE",
         headers: new Headers({Authorization: `Bearer ${token}`})
     })

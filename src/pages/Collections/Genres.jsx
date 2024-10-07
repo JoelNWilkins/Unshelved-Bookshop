@@ -14,7 +14,7 @@ function Genre({ books }) {
     }
     const getGenre = async () => {
       try {
-        const response = await getPublic(`data/genres/${genre}`);
+        const response = await getPublic('data', `genres/${genre}`);
         console.log(`Getting data for genre with id ${genre}`);
         console.log(response?.data);
         if (response?.data.shelves) {
