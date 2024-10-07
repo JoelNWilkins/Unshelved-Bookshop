@@ -25,6 +25,8 @@
 
   // Make unavailable books look ghostly (greyscale and translucent)
   &.unavailable {
+    cursor: not-allowed;
+
     .spine, .front, .back, .top, .bottom {
       opacity: 0.5;
       filter: grayscale(75%);
